@@ -1,0 +1,34 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.modal__window {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 50vh;
+}
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10%;
+    font-size: 25px;
+}
+.item strong {
+    display: flex;
+    align-items: flex-start;
+    margin-right: 2%;
+}
+
+.modal__window_prompt {
+    height: 5%;
+    font-size: 14px;
+    color: grey;
+}
