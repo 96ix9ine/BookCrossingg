@@ -7,11 +7,10 @@ import '../styles/Placemark.css';
 import '../styles/ModalWindow.css';
 
 interface CustomMapProps {
-    id: string;
     coordinates: [number, number, number][];
 }
 
-const CustomMap: React.FC<CustomMapProps> = ({ id, coordinates }) => {
+const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
 
     const [activePlacemarkId, setActivePlacemarkId] = useState<number | null>(null);
       
@@ -42,7 +41,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ id, coordinates }) => {
     }, []);
 
     return (
-        <Panel id={id}>
+        <Panel>
             <YMaps query={{ ns: "use-load-option", load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon" }}>
                 <div className='Map_wrapper'>
                     <Map className='Map' style={{ width: '100vw', height: '100vh' }} defaultState={{ center: [55.174366176405364, 61.38835450474792], zoom: 12 }}>

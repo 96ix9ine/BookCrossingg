@@ -1,14 +1,15 @@
 import { useState, useEffect, ReactNode } from 'react';
 import bridge, { UserInfo } from '@vkontakte/vk-bridge';
-import { View, SplitLayout, SplitCol, ScreenSpinner } from '@vkontakte/vkui';
-import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router';
-
-import { DEFAULT_VIEW_PANELS } from './routes';
+import { View, SplitLayout, SplitCol, ScreenSpinner, Root } from '@vkontakte/vkui';
+import { useActiveVkuiLocation, useGetPanelForView } from '@vkontakte/vk-mini-apps-router';
 
 import CustomMap from './panels/Map';
+import AddBookPanel from './panels/AddBookPanel';
+import { Persik } from './panels';
 
 export const App = () => {
-  const { panel: activePanel = DEFAULT_VIEW_PANELS.MAP } = useActiveVkuiLocation();
+	const { view: activeView } = useActiveVkuiLocation();
+	const activePanel = useGetPanelForView("default_view");
   const [fetchedUser, setUser] = useState<UserInfo | undefined>();
   // const [popout, setPopout] = useState<ReactNode | null>(<ScreenSpinner size="large" />);
 
@@ -41,8 +42,10 @@ export const App = () => {
   return (
     <SplitLayout>
       <SplitCol>
-        <View activePanel={activePanel}>
-          <CustomMap id={activePanel} coordinates={coordinates}/>
+        <View nav={activeView} activePanel={activePanel}>
+          <AddBookPanel nav="home_panel"/>
+          <CustomMap nav="map_panel" coordinates={coordinates}/>
+          <Persik nav="persik_panel"/>
         </View>
       </SplitCol>
     </SplitLayout>

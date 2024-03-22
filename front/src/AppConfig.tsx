@@ -1,11 +1,10 @@
 import vkBridge, { parseURLSearchParamsForGetLaunchParams } from '@vkontakte/vk-bridge';
 import { useAdaptivity, useAppearance, useInsets } from '@vkontakte/vk-bridge-react';
 import { AdaptivityProvider, ConfigProvider, AppRoot } from '@vkontakte/vkui';
-import { RouterProvider } from '@vkontakte/vk-mini-apps-router';
+import { RouterProvider, createHashRouter } from '@vkontakte/vk-mini-apps-router';
 import '@vkontakte/vkui/dist/vkui.css';
 
 import { transformVKBridgeAdaptivity } from './utils';
-import { router } from './routes';
 import { App } from './App';
 
 export const AppConfig = () => {
@@ -13,6 +12,25 @@ export const AppConfig = () => {
   const vkBridgeInsets = useInsets() || undefined;
   const adaptivity = transformVKBridgeAdaptivity(useAdaptivity());
   const { vk_platform } = parseURLSearchParamsForGetLaunchParams(window.location.search);
+
+  // Указываем пути для панелей
+  const router = createHashRouter([
+    {
+      path: '/',
+      panel: 'home_panel',
+      view: 'default_view',
+    },
+    {
+      path: 'map',
+      panel: 'map_panel',
+      view: 'default_view',
+    },
+    {
+      path: 'persik',
+      panel: 'persik_panel',
+      view: 'default_view',
+    }
+  ])
 
   return (
     <ConfigProvider
