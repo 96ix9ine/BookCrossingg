@@ -45,7 +45,6 @@ export const App = () => {
         <View nav={activeView} activePanel={activePanel}>
           <AddBookPanel nav="home_panel"/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
-          <Persik nav="persik_panel"/>
         </View>
       </SplitCol>
     </SplitLayout>

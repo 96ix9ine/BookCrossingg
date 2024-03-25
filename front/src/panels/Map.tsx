@@ -3,8 +3,8 @@ import { PlacemarkInfo } from '../components/MapDescription';
 import { Button, ModalPage, ModalPageHeader, ModalRoot, Panel } from '@vkontakte/vkui';
 import { YMaps, Map, SearchControl, GeolocationControl, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
 import { PlacemarkData } from '../components/MapDescription';
-import '../styles/Placemark.css';
-import '../styles/ModalWindow.css';
+import '../styles/Placemark.scss';
+import '../styles/ModalWindow.scss';
 
 interface CustomMapProps {
     coordinates: [number, number, number][];

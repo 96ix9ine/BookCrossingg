@@ -24,11 +24,6 @@ export const AppConfig = () => {
       path: 'map',
       panel: 'map_panel',
       view: 'default_view',
-    },
-    {
-      path: 'persik',
-      panel: 'persik_panel',
-      view: 'default_view',
     }
   ])
 
@@ -37,7 +32,7 @@ export const AppConfig = () => {
       appearance={vkBridgeAppearance}
       platform={vk_platform === 'desktop_web' ? 'vkcom' : undefined}
       isWebView={vkBridge.isWebView()}
-      hasCustomPanelHeaderAfter={true}
+      hasCustomPanelHeaderAfter={false}
     >
       <AdaptivityProvider {...adaptivity}>
         <AppRoot mode="full" safeAreaInsets={vkBridgeInsets}>
