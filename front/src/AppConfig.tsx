@@ -24,6 +24,16 @@ export const AppConfig = () => {
       path: 'map',
       panel: 'map_panel',
       view: 'default_view',
+    },
+    {
+      path: 'profile',
+      panel: 'profile_panel',
+      view: 'default_view',
+    },
+    {
+      path: 'catalog',
+      panel: 'catalog_panel',
+      view: 'default_view',
     }
   ])
 

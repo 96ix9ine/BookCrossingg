@@ -27,6 +27,7 @@ import {
     Icon24Camera,
     Icon28AddOutline
 } from "@vkontakte/icons";
+import { TabbarComponent } from "../components/Tabbar";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -103,7 +104,7 @@ const AddBookPanel = (): JSX.Element => {
                     /> */}
                 </div>
             </Div>
-            
+            <TabbarComponent/>
         </Panel>
     );
 }

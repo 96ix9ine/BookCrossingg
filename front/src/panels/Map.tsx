@@ -6,7 +6,7 @@ import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
 import { AccordionVKID } from '../components/MapFilter';
 import '../styles/Placemark.scss';
 import '../styles/ModalWindow.scss';
-import '../styles/MapFilter.css';
+import '../styles/MapFilter.scss';
 import '../styles/Tabbar.scss'
 import { TabbarComponent } from '../components/Tabbar';
 

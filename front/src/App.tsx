@@ -7,6 +7,7 @@ import { coordinates } from './components/MapCoordinates';
 import CustomMap from './panels/Map';
 import AddBookPanel from './panels/AddBookPanel';
 import { Persik } from './panels/Persik';
+import { CatalogPanel } from './panels/CatalogPanel';
 
 export const App = () => {
 	const { view: activeView } = useActiveVkuiLocation();
@@ -27,6 +28,7 @@ export const App = () => {
     <SplitLayout>
       <SplitCol>
         <View nav={activeView} activePanel={activePanel}>
+          <CatalogPanel nav="catalog_panel"/>
           <AddBookPanel nav="home_panel"/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
         </View>
