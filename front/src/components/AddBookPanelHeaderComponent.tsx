@@ -18,6 +18,7 @@ const AddBookPanelHeaderComponent = (): JSX.Element => {
     return (
         <PanelHeader
             className="addBook__panelheader"
+            id="addbook"
             before={
                 <Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => router.back()}/>
             }
