@@ -194,7 +194,7 @@ const AddBookPanel = (): JSX.Element => {
                 </Group>
             </Footer>
             <TabbarComponent/>
-            
+ 
         </Panel>
     );
 }
