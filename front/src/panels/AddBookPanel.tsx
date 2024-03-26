@@ -193,8 +193,6 @@ const AddBookPanel = (): JSX.Element => {
                     </CellButton>
                 </Group>
             </Footer>
-            <TabbarComponent/>
- 
         </Panel>
     );
 }
