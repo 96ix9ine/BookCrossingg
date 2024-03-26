@@ -94,6 +94,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                 </ModalRoot>
             )}
             <TabbarComponent/>
+            <TabbarComponent/>
         </Panel>
     );
 };
