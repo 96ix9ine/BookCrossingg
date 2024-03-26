@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Panel, PanelHeader, PanelHeaderBack, Search, Group, Title } from '@vkontakte/vkui';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import '../styles/Components.scss';
+import { TabbarComponent } from '../components/Tabbar';
 
 export const CatalogPanel: React.FC = () => {
     const router = useRouteNavigator();
@@ -22,6 +23,7 @@ export const CatalogPanel: React.FC = () => {
                 <Title>Актуальное</Title>
                 
             </Group>
+            <TabbarComponent/>
         </Panel>
     );
 };

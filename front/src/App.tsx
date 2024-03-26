@@ -29,9 +29,9 @@ export const App = () => {
     <SplitLayout>
       <SplitCol>
         <View nav={activeView} activePanel={activePanel}>
-          <CatalogPanel nav="catalog_panel"/>
+          <CatalogPanel nav="home_panel"/>
           <Profile nav="profile_panel" />
-          <AddBookPanel nav="home_panel"/>
+          <AddBookPanel nav="addbook_panel"/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
         </View>
       </SplitCol>

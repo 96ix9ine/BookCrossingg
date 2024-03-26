@@ -11,7 +11,7 @@ export const TabbarComponent: React.FC = () => {
       <Tabbar className="tabbar">
         <TabbarItem
           selected={indicator === 'one'}
-          onClick={() => [setIndicator('one'), router.push('/catalog')]}
+          onClick={() => [setIndicator('one'), router.push('/')]}
           indicator={<Badge mode="prominent">Есть обновления</Badge>}
           text="Каталог"
         >
@@ -24,7 +24,7 @@ export const TabbarComponent: React.FC = () => {
         >
           <Icon28MessageOutline />
         </TabbarItem>
-        <TabbarItem selected={indicator === 'three'} onClick={() => [setIndicator('three'), router.push('/')]} text="Добавить">
+        <TabbarItem selected={indicator === 'three'} onClick={() => [setIndicator('three'), router.push('/addbook')]} text="Добавить">
           <Icon28AddCircleFillBlue />
         </TabbarItem>
         <TabbarItem selected={indicator === 'four'} onClick={() => [setIndicator('four'), router.push('/map')]} text="Места">

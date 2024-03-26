@@ -31,8 +31,8 @@ export const AppConfig = () => {
       view: 'default_view',
     },
     {
-      path: 'catalog',
-      panel: 'catalog_panel',
+      path: 'addbook',
+      panel: 'addbook_panel',
       view: 'default_view',
     }
   ])
