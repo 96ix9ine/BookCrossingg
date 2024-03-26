@@ -6,7 +6,7 @@ import { coordinates } from './components/MapCoordinates';
 
 import CustomMap from './panels/Map';
 import AddBookPanel from './panels/AddBookPanel';
-import { Persik } from './panels';
+import { Persik } from './panels/Persik';
 
 export const App = () => {
 	const { view: activeView } = useActiveVkuiLocation();

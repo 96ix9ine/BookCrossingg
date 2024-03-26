@@ -7,6 +7,8 @@ import { AccordionVKID } from '../components/MapFilter';
 import '../styles/Placemark.css';
 import '../styles/ModalWindow.css';
 import '../styles/MapFilter.css';
+import '../styles/Tabbar.scss'
+import { TabbarComponent } from '../components/Tabbar';
 
 
 interface CustomMapProps {
@@ -79,7 +81,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                     id={`placemarkInfo-${activePlacemarkId}`}
                     onClose={closeModal}
                     header={<ModalPageHeader>Информация о метке</ModalPageHeader>}
-                    settlingHeight={100}
+                    settlingHeight={50}
                     dynamicContentHeight={true}
                 >                   
                     <div className="modal__window">
@@ -92,6 +94,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                 </ModalPage>
                 </ModalRoot>
             )}
+            <TabbarComponent/>
         </Panel>
     );
 };
