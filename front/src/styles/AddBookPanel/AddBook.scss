@@ -15,6 +15,7 @@
     justify-content: space-between;
     width: 100%;
 
+
     .group {
         display: flex;
         flex-direction: row;
@@ -23,6 +24,17 @@
         gap: 24px;
         margin-top: 10px;
         padding-left: 101px;
+
+
+        .cellbutton {
+            display: flex;
+            flex-direction: row;
+    
+            .cellbutton__text {
+                font-size: 16px;
+            }
+            
+        }   
     }
 
     .panelheader__title {
@@ -31,15 +43,7 @@
         letter-spacing: 0.1px;
     }
 
-    .cellbutton {
-        display: flex;
-        flex-direction: row;
-
-        .cellbutton__text {
-            font-size: 16px;
-        }
-        
-    }
+    
 }
 
 .cellbutton {
@@ -119,3 +123,27 @@
     }
 }
 
+
+.addBook__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 39px;
+    background-color: #2688EB;
+
+
+    span {
+        font-family: "Roboto-Regular";
+        font-size: 20px;
+        color: #FDFCFF;
+    }
+}
+
+.footer__text {
+    width: 415px;
+    color: #6D7885;
+    font-family: "Roboto-Regular";
+    font-size: 13px;
+}
