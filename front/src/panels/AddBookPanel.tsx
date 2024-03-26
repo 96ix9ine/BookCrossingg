@@ -33,13 +33,6 @@ const AddBookPanel = (): JSX.Element => {
     const routeNavigator = useRouteNavigator();
     const genres = ["Комиксы", "Манга", "Фэнтези", "Романтика", "Драма", "Детективы", "История", "Ужасы"];
 
-    // const getGenres = (genres: string[]) => {
-    //     genres.map(item => {
-    //         name: item.
-    //     });
-    // }
-
-
     return (
         <Panel>
             <Div>
@@ -103,12 +96,11 @@ const AddBookPanel = (): JSX.Element => {
                 </div>
 
                 <div className="container input__wrapper">
-                    <CustomSelect
+                    {/* <CustomSelect
                         id="administrator-select-id"
                         placeholder="Не выбран"
-                        options={() => {}}
                         allowClearButton
-                    />
+                    /> */}
                 </div>
             </Div>
             
