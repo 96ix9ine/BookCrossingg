@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { PlacemarkInfo } from '../components/MapDescription';
-import { Button, ModalPage, ModalPageHeader, ModalRoot, Panel } from '@vkontakte/vkui';
+import React, { useEffect, useMemo, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { ModalPage, ModalPageHeader, ModalRoot, Panel } from '@vkontakte/vkui';
 import { YMaps, Map, SearchControl, GeolocationControl, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
-import { PlacemarkData } from '../components/MapDescription';
+import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
+import { AccordionVKID } from '../components/MapFilter';
 import '../styles/Placemark.scss';
 import '../styles/ModalWindow.scss';
+import '../styles/MapFilter.css';
 
 interface CustomMapProps {
     coordinates: [number, number, number][];
@@ -13,6 +15,7 @@ interface CustomMapProps {
 const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
 
     const [activePlacemarkId, setActivePlacemarkId] = useState<number | null>(null);
+    const [selectedType, setSelectedType] = useState<string | null>(null);
       
     const handlePlacemarkClick = (placemarkId: number) => {
         setActivePlacemarkId(placemarkId);
@@ -21,6 +24,12 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
     const closeModal = () => {
         setActivePlacemarkId(null);
     };
+
+    // const filteredCoordinates = useMemo(() => {
+    //     if (!selectedType) return coordinates;
+      
+    //     return coordinates.filter(([lat, lng, _, type]) => type === selectedType);
+    //   }, [coordinates, selectedType]);
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -38,6 +47,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                 ymaps
             });
         }
+
     }, []);
 
     return (
@@ -45,8 +55,9 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
             <YMaps query={{ ns: "use-load-option", load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon" }}>
                 <div className='Map_wrapper'>
                     <Map className='Map' style={{ width: '100vw', height: '100vh' }} defaultState={{ center: [55.174366176405364, 61.38835450474792], zoom: 12 }}>
-                        <SearchControl options={{ float: "right" }} />
-                        <GeolocationControl options={{ float: "left" }} />
+                        <AccordionVKID/>
+                        {/* <SearchControl options={{ float: "right" }} />
+                        <GeolocationControl options={{ float: "left" }} /> */}
                         <ZoomControl options={{ float: "right" }} />
                         <Clusterer
                             options={{
@@ -77,7 +88,6 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                         <p className="modal__window_time item"><strong>Время работы:</strong> {PlacemarkData[activePlacemarkId].time}</p>
                         <p className="modal__window_prompt item"><strong>Примечание:</strong> {PlacemarkData[activePlacemarkId].prompt}</p>
                     </div>
-                    {/* <Button onClick={closeModal}>Закрыть</Button> */}
                 </ModalPage>
                 </ModalRoot>
             )}

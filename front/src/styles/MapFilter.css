@@ -1,0 +1,28 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.map_div_filter {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1;
+    left: 5%;
+}
+.map_accordion {
+    background-color: black;
+}
+.map_accordion_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    background-color: black;
+    border-radius: 15px;
+}
