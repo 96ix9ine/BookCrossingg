@@ -1,0 +1,65 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.profile {
+    margin: 0 auto;
+    padding: 3% 7%;
+}
+
+.user_background {
+    width: 100%;
+    background: rgb(115,115,115);
+    background: linear-gradient(180deg, rgba(115,115,115,1) 0%, rgba(27,14,14,1) 80%);
+    height: 15vh;
+    position: absolute;
+}
+
+.vkuiGroup {
+    padding-top: 0;
+}
+
+.profile_info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20%;
+    position: relative;
+}
+
+.header {
+    color: #3288FF;
+}
+
+.no_books {
+    color: #818C99;
+}
+
+.user_books_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.book {
+    width: 120px;
+    height: 150px;
+    background-image: url('https://sun9-17.userapi.com/impg/puufTEzBm2RM2GzwJAn9C2pAWWgy54521s86dg/CF3wwpZ6q48.jpg?size=512x1080&quality=96&sign=8a9226f7a7e55ac6e50cf80f51f06cd8&type=album');
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    background-size: contain;
+    position: relative;
+    margin: 12% 0;
+}
+
+.name_book{
+    position: absolute;
+    top: 100%;
+}
+
+.author {
+    top: 130%;
+}
