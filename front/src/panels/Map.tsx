@@ -50,7 +50,9 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
             });
         }
 
-    }, []);
+    }, []); 
+
+
 
     return (
         <Panel>
