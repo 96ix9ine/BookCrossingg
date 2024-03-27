@@ -19,7 +19,8 @@ import {
     CustomSelect,
     CustomSelectOptionInterface,
     Radio,
-    Footer
+    Footer,
+    RadioGroup
 } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
@@ -32,6 +33,8 @@ import {
 } from "@vkontakte/icons";
 import { TabbarComponent } from "../components/Tabbar";
 import { useEffect, useState } from "react";
+import { useUnit } from "effector-react";
+import { $books, addBook } from "../store/addBook";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -40,6 +43,8 @@ const AddBookPanel = (): JSX.Element => {
     const [bookAuthor, setBookAuthor] = useState<string>("");
     const [bookDescr, setBookDescr] = useState<string>("");
     const [bookGenre, setBookGenre] = useState<string>("");
+
+    const book = useUnit($books);
 
     const selectGenres = [
         {
@@ -75,6 +80,12 @@ const AddBookPanel = (): JSX.Element => {
             value: 'Ужасы',
         },
     ];
+
+
+    useEffect(() => {
+        addBook();
+        console.log(book);
+    }, []);
     
 
     return (
@@ -157,28 +168,32 @@ const AddBookPanel = (): JSX.Element => {
                         options={selectGenres}
                     />
                 </div>
-
+                
                 <div className="container input__wrapper">
-                    <Title className="input__title bottom__title" level="2">Описание книги</Title>
-                    <Radio name="radio" value="1" defaultChecked>
-                        Бесплатно
-                    </Radio>
-                    <Radio name="radio" value="2" defaultChecked>
-                        Обмен
-                    </Radio>
+                    <Title className="input__title bottom__title" level="2">Тип сделки</Title>
+                    <RadioGroup>
+                        <Radio name="exchange" value="1" defaultChecked>
+                            Бесплатно
+                        </Radio>
+                        <Radio name="exchange" value="2" defaultChecked>
+                            Обмен
+                        </Radio>
+                    </RadioGroup>
                 </div>
 
                 <div className="container input__wrapper">
                     <Title className="input__title bottom__title" level="2">Степень повреждения</Title>
-                    <Radio name="radio" value="1" defaultChecked>
-                        Нет
-                    </Radio>
-                    <Radio name="radio" value="2" defaultChecked>
-                        Небольшие
-                    </Radio>
-                    <Radio name="radio" value="3" defaultChecked>
-                        Сильные
-                    </Radio>
+                    <RadioGroup>
+                        <Radio name="damage" value="3" defaultChecked>
+                            Нет
+                        </Radio>
+                        <Radio name="damage" value="4" defaultChecked>
+                            Небольшие
+                        </Radio>
+                        <Radio name="damage" value="5" defaultChecked>
+                            Сильные
+                        </Radio>
+                    </RadioGroup>
                 </div>
             </Group>
 
@@ -187,7 +202,8 @@ const AddBookPanel = (): JSX.Element => {
                     <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
                     <CellButton 
                         className="addBook__button"
-                        onClick={() => {}}
+                        onClick={() => {
+                        }}
                     >
                         <span>Добавить книгу</span>
                     </CellButton>
