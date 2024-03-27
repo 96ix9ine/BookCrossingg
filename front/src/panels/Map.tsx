@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { ModalPage, ModalPageHeader, ModalRoot, Panel } from '@vkontakte/vkui';
-import { YMaps, Map, SearchControl, GeolocationControl, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
+import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
 import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
 import { AccordionVKID } from '../components/MapFilter';
 import '../styles/Placemark.scss';
 import '../styles/ModalWindow.scss';
 import '../styles/MapFilter.scss';
-import '../styles/Tabbar.scss'
+import '../styles/Tabbar.scss';
 import { TabbarComponent } from '../components/Tabbar';
 
 interface CustomMapProps {
@@ -52,16 +52,12 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
 
     }, []); 
 
-
-
     return (
         <Panel>
-            <YMaps query={{ ns: "use-load-option", load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon" }}>
+            <YMaps query={{ load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon" }}>
                 <div className='Map_wrapper'>
                     <Map className='Map' style={{ width: '100vw', height: '100vh' }} defaultState={{ center: [55.174366176405364, 61.38835450474792], zoom: 12 }}>
                         <AccordionVKID/>
-                        {/* <SearchControl options={{ float: "right" }} />
-                        <GeolocationControl options={{ float: "left" }} /> */}
                         <ZoomControl options={{ float: "right" }} />
                         <Clusterer
                             options={{
@@ -70,7 +66,12 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                             }}
                         >
                             {coordinates.map(([lat, lng, pointId, template]) => (
-                                <Placemark key={pointId} geometry={[lat, lng]} options={{iconLayout: template}} onClick={() => handlePlacemarkClick(pointId)}/>
+                                <Placemark 
+                                key={pointId} 
+                                geometry={[lat, lng]} 
+                                options={{iconLayout: template, preset: 'islands#redStretchyIcon'}} 
+                                properties={{iconContent: PlacemarkData[pointId] ? PlacemarkData[pointId].name : ""}}
+                                onClick={() => handlePlacemarkClick(pointId)}/>
                             ))}
                         </Clusterer>
                     </Map>
@@ -95,7 +96,6 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                 </ModalPage>
                 </ModalRoot>
             )}
-            <TabbarComponent/>
             <TabbarComponent/>
         </Panel>
     );
