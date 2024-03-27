@@ -19,7 +19,8 @@ import {
     CustomSelect,
     CustomSelectOptionInterface,
     Radio,
-    Footer
+    Footer,
+    RadioGroup
 } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
@@ -157,28 +158,32 @@ const AddBookPanel = (): JSX.Element => {
                         options={selectGenres}
                     />
                 </div>
-
+                
                 <div className="container input__wrapper">
                     <Title className="input__title bottom__title" level="2">Описание книги</Title>
-                    <Radio name="radio" value="1" defaultChecked>
-                        Бесплатно
-                    </Radio>
-                    <Radio name="radio" value="2" defaultChecked>
-                        Обмен
-                    </Radio>
+                    <RadioGroup>
+                        <Radio name="exchange" value="1" defaultChecked>
+                            Бесплатно
+                        </Radio>
+                        <Radio name="exchange" value="2" defaultChecked>
+                            Обмен
+                        </Radio>
+                    </RadioGroup>
                 </div>
 
                 <div className="container input__wrapper">
                     <Title className="input__title bottom__title" level="2">Степень повреждения</Title>
-                    <Radio name="radio" value="1" defaultChecked>
-                        Нет
-                    </Radio>
-                    <Radio name="radio" value="2" defaultChecked>
-                        Небольшие
-                    </Radio>
-                    <Radio name="radio" value="3" defaultChecked>
-                        Сильные
-                    </Radio>
+                    <RadioGroup>
+                        <Radio name="damage" value="3" defaultChecked>
+                            Нет
+                        </Radio>
+                        <Radio name="damage" value="4" defaultChecked>
+                            Небольшие
+                        </Radio>
+                        <Radio name="damage" value="5" defaultChecked>
+                            Сильные
+                        </Radio>
+                    </RadioGroup>
                 </div>
             </Group>
 
