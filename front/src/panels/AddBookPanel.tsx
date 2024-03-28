@@ -20,7 +20,8 @@ import {
     CustomSelectOptionInterface,
     Radio,
     Footer,
-    RadioGroup
+    RadioGroup,
+    Image
 } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
@@ -46,6 +47,7 @@ const AddBookPanel = (): JSX.Element => {
     const [bookGenre, setBookGenre] = useState<string>("");
     const [bookDealType, setBookDealType] = useState<string>("");
     const [bookDamageLevel, setBookDamageLevel] = useState<string>("");
+    const [bookImageFile, setBookImageFile] = useState<any | null>(null);
 
     const book = useUnit($books);
 
@@ -86,8 +88,8 @@ const AddBookPanel = (): JSX.Element => {
 
 
     useEffect(() => {
-        console.log(book);
-    }, [book]);
+        console.log(bookImageFile);
+    }, [bookImageFile]);
 
 
     const resetBookData = () => {
@@ -163,8 +165,16 @@ const AddBookPanel = (): JSX.Element => {
                         <File
                             className="file"
                             size="l"
+                            value={bookImageFile}
                         >
-                            <Icon28AddOutline width={47} height={47} style={{color: "#A5A5A5"}}/>
+                            {
+                                bookImageFile 
+                                ? 
+                                    <Image src=""/> 
+                                : 
+                                    <Icon28AddOutline width={47} height={47} style={{color: "#A5A5A5"}}/>
+                            }
+                            
                         </File>
                         
                     </FormItem>
