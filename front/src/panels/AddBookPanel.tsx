@@ -203,6 +203,7 @@ const AddBookPanel = (): JSX.Element => {
                     <CellButton 
                         className="addBook__button"
                         onClick={() => {
+                            addBook(book);
                         }}
                     >
                         <span>Добавить книгу</span>
