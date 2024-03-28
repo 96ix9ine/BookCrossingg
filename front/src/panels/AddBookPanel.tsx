@@ -153,6 +153,7 @@ const AddBookPanel = (): JSX.Element => {
                     <Input
                         className="input"
                         type="text"
+                        disabled
                         placeholder="Введите адрес"
                     />
                 </div>
