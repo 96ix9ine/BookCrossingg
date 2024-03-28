@@ -24,17 +24,18 @@ import {
 } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
-import AddBookPanelHeaderComponent from "../components/AddBookPanelHeaderComponent";
 import { 
     Icon16Clear, 
     Icon12ChevronOutline, 
     Icon24Camera,
-    Icon28AddOutline
+    Icon28AddOutline,
+    Icon28ArrowLeftOutline
 } from "@vkontakte/icons";
-import { TabbarComponent } from "../components/Tabbar";
 import { useEffect, useState } from "react";
 import { useUnit } from "effector-react";
-import { $books, addBook } from "../store/addBook";
+import { $books } from "../store/addBook";
+import { createBookFx } from "../api/addBookApi";
+import { IBook } from "../interfaces/IBook";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -43,6 +44,8 @@ const AddBookPanel = (): JSX.Element => {
     const [bookAuthor, setBookAuthor] = useState<string>("");
     const [bookDescr, setBookDescr] = useState<string>("");
     const [bookGenre, setBookGenre] = useState<string>("");
+    const [bookDealType, setBookDealType] = useState<string>("");
+    const [bookDamageLevel, setBookDamageLevel] = useState<string>("");
 
     const book = useUnit($books);
 
@@ -83,15 +86,58 @@ const AddBookPanel = (): JSX.Element => {
 
 
     useEffect(() => {
-        addBook();
         console.log(book);
-    }, []);
+    }, [book]);
+
+
+    const resetBookData = () => {
+        setBookName("");
+        setBookAuthor("");
+        setBookDescr("");
+        setBookGenre("");
+        setBookDealType("");
+        setBookDamageLevel("");
+    }
+
+
+    const addBook = async () => {
+        const newBook: IBook = {
+            name: bookName,
+            author: bookAuthor,
+            description: bookDescr,
+            genre: bookGenre,
+            dealType: bookDealType,
+            damageLevel: bookDamageLevel
+        }
+
+        return await createBookFx(newBook);
+    }
     
 
     return (
         <Panel>
             <Group separator="show">
-                <AddBookPanelHeaderComponent />
+                <PanelHeader
+                    className="addBook__panelheader"
+                    id="addbook"
+                    before={
+                        <Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => routeNavigator.back()}/>
+                    }
+                >
+                    <Group className="group">
+                        <Text
+                            className="panelheader__title"
+                        >
+                            Добавить книгу
+                        </Text>
+                        <CellButton
+                            onClick={() => {resetBookData()}} 
+                            className="cellbutton"
+                        >
+                            <Text className="cellbutton__text">Очистить</Text>
+                        </CellButton>
+                    </Group>
+                </PanelHeader>
                 
                 <div className="container input__wrapper">
                     <div className="top">
@@ -172,10 +218,20 @@ const AddBookPanel = (): JSX.Element => {
                 <div className="container input__wrapper">
                     <Title className="input__title bottom__title" level="2">Тип сделки</Title>
                     <RadioGroup>
-                        <Radio name="exchange" value="1" defaultChecked>
+                        <Radio
+                            name="exchange"
+                            value="1"
+                            defaultChecked
+                            onChange={() => setBookDealType("Бесплатно")}
+                        >
                             Бесплатно
                         </Radio>
-                        <Radio name="exchange" value="2" defaultChecked>
+                        <Radio 
+                            name="exchange" 
+                            value="2" 
+                            defaultChecked
+                            onChange={() => setBookDealType("Обмен")}
+                        >
                             Обмен
                         </Radio>
                     </RadioGroup>
@@ -184,13 +240,25 @@ const AddBookPanel = (): JSX.Element => {
                 <div className="container input__wrapper">
                     <Title className="input__title bottom__title" level="2">Степень повреждения</Title>
                     <RadioGroup>
-                        <Radio name="damage" value="3" defaultChecked>
+                        <Radio
+                            name="damage"
+                            value="3"
+                            defaultChecked
+                        >
                             Нет
                         </Radio>
-                        <Radio name="damage" value="4" defaultChecked>
+                        <Radio 
+                            name="damage" 
+                            value="4" 
+                            defaultChecked
+                        >
                             Небольшие
                         </Radio>
-                        <Radio name="damage" value="5" defaultChecked>
+                        <Radio 
+                            name="damage"
+                            value="5"
+                            defaultChecked
+                        >
                             Сильные
                         </Radio>
                     </RadioGroup>
@@ -202,9 +270,7 @@ const AddBookPanel = (): JSX.Element => {
                     <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
                     <CellButton 
                         className="addBook__button"
-                        onClick={() => {
-                            addBook(book);
-                        }}
+                        onClick={() => {addBook(); resetBookData()}}
                     >
                         <span>Добавить книгу</span>
                     </CellButton>

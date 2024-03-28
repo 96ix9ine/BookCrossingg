@@ -14,7 +14,6 @@ import { Icon28ArrowLeftOutline } from "@vkontakte/icons";
 const AddBookPanelHeaderComponent = (): JSX.Element => {
     const router = useRouteNavigator();
 
-
     return (
         <PanelHeader
             className="addBook__panelheader"

@@ -1,10 +1,8 @@
-import { createEffect, createEvent, createStore } from "effector";
+import { createEvent, createStore } from "effector";
 import { IBook } from "../interfaces/IBook";
+import { createBookFx } from "../api/addBookApi";
 
 export const $books = createStore<IBook[]>([]);
 
-export const clearDataFx = createEffect();
 
-export const addBook = createEvent();
-
-$books.on(addBook, (_, book) => book);
+$books.on(createBookFx.doneData, (book, newBook) => [...book, newBook]);
