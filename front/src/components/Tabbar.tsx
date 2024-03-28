@@ -1,11 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Tabbar, TabbarItem, Badge} from '@vkontakte/vkui';
+import { Tabbar, TabbarItem, Badge, NavIdProps} from '@vkontakte/vkui';
 import { Icon28UserCircleOutline, Icon28MessageOutline, Icon28PlaceOutline, Icon28AddCircleFillBlue, Icon28BillheadOutline } from '@vkontakte/icons';
-import { useRouteNavigator }from '@vkontakte/vk-mini-apps-router'
+import { useRouteNavigator }from '@vkontakte/vk-mini-apps-router';
+import  bridge, { UserInfo } from "@vkontakte/vk-bridge";
+
+export interface ProfileProps extends NavIdProps {
+  fetchedUser?: UserInfo;
+}
 
 export const TabbarComponent: React.FC = () => {
   const [indicator, setIndicator] = useState<string>('one');
   const router = useRouteNavigator();
+
+  const [fetchedUser, setUser] = useState<UserInfo | undefined>();
+
+  const handleMessagesClick = (userId: number | undefined) => {
+    if (userId) {
+      setIndicator('two');
+      window.open(`https://vk.com/im?sel=${userId}`, '_blank');
+    }
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      const user = await bridge.send('VKWebAppGetUserInfo');
+      setUser(user);
+    }
+    fetchData();
+  }, []);
 
   return (
       <Tabbar className="tabbar">
@@ -19,7 +41,7 @@ export const TabbarComponent: React.FC = () => {
         </TabbarItem>
         <TabbarItem
           selected={indicator === 'two'}
-          onClick={() => setIndicator('two')}
+          onClick={() => handleMessagesClick(fetchedUser?.id)}
           text="Сообщения"
         >
           <Icon28MessageOutline />

@@ -61,7 +61,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                         <ZoomControl options={{ float: "right" }} />
                         <Clusterer
                             options={{
-                                preset: "islands#invertedVioletClusterIcons",
+                                preset: "islands#invertedBlackClusterIcons",
                                 groupByCoordinates: false,
                             }}
                         >
