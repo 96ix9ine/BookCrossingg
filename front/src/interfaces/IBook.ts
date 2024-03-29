@@ -4,5 +4,6 @@ export interface IBook {
     description: string,
     genre: string,
     dealType: string,
-    damageLevel: string
+    damageLevel: string,
+    imagePath: string
 }

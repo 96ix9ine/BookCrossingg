@@ -1,3 +1,5 @@
+@import url("../fonts/stylesheet.scss");
+
 #catalog-back .vkuiIcon {
     width: 50px !important;
     height: 50px !important;
@@ -5,4 +7,41 @@
 #addbook .vkuiIcon {
     width: 50px !important;
     height: 50px !important;
+}
+
+.books__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 28px;
+
+    .book__item {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+
+
+        .book_item-image {
+            width: 112px;
+            height: 145px;
+        }
+
+
+        .book__item-textContent {
+            display: flex;
+            flex-direction: column;
+
+
+            .book__name {
+                font-family: "Roboto-Medium";
+                font-size: 24px;
+            }
+
+            .book__descr {
+                color: #A5A5A5;
+                font-family: "Roboto-Regular";
+                font-size: 20px;
+            }
+        }
+    }
 }

@@ -48,6 +48,7 @@ const AddBookPanel = (): JSX.Element => {
     const [bookDealType, setBookDealType] = useState<string>("");
     const [bookDamageLevel, setBookDamageLevel] = useState<string>("");
     const [bookImageFile, setBookImageFile] = useState<any | null>(null);
+    const [imageUrl, setImageUrl] = useState<string>("");
 
     const book = useUnit($books);
 
@@ -87,9 +88,16 @@ const AddBookPanel = (): JSX.Element => {
     ];
 
 
+    const handleFileUpload = (event: any) => {
+        const file = event.target.files[0];
+        const imageURL = URL.createObjectURL(file);
+        setImageUrl(imageURL);
+    }
+
+
     useEffect(() => {
-        console.log(bookImageFile);
-    }, [bookImageFile]);
+        console.log(imageUrl);
+    }, [imageUrl]);
 
 
     const resetBookData = () => {
@@ -109,7 +117,8 @@ const AddBookPanel = (): JSX.Element => {
             description: bookDescr,
             genre: bookGenre,
             dealType: bookDealType,
-            damageLevel: bookDamageLevel
+            damageLevel: bookDamageLevel,
+            imagePath: imageUrl
         }
 
         return await createBookFx(newBook);
@@ -166,12 +175,13 @@ const AddBookPanel = (): JSX.Element => {
                         <File
                             className="file"
                             size="l"
-                            value={bookImageFile}
+                            appearance="overlay"
+                            onChange={handleFileUpload}
                         >
                             {
                                 bookImageFile 
                                 ? 
-                                    <Image src=""/> 
+                                    <img src={imageUrl} /> 
                                 : 
                                     <Icon28AddOutline width={47} height={47} style={{color: "#A5A5A5"}}/>
                             }
