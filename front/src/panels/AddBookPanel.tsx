@@ -112,7 +112,7 @@ const AddBookPanel = (): JSX.Element => {
 
     const addBook = async () => {
         const newBook: IBook = {
-            name: bookName,
+            title: bookName,
             author: bookAuthor,
             description: bookDescr,
             genre: bookGenre,
@@ -265,6 +265,7 @@ const AddBookPanel = (): JSX.Element => {
                             name="damage"
                             value="3"
                             defaultChecked
+                            onChange={() => setBookDamageLevel("Нет")}
                         >
                             Нет
                         </Radio>
@@ -272,6 +273,7 @@ const AddBookPanel = (): JSX.Element => {
                             name="damage" 
                             value="4" 
                             defaultChecked
+                            onChange={() => setBookDamageLevel("Небольшие")}
                         >
                             Небольшие
                         </Radio>
@@ -279,6 +281,7 @@ const AddBookPanel = (): JSX.Element => {
                             name="damage"
                             value="5"
                             defaultChecked
+                            onChange={() => setBookDamageLevel("Сильные")}
                         >
                             Сильные
                         </Radio>

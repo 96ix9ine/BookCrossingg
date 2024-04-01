@@ -20,6 +20,7 @@
     "@vkontakte/vk-mini-apps-router": "^1.4.3",
     "@vkontakte/vk-tunnel": "^0.1.0",
     "@vkontakte/vkui": "^6.0.0",
+    "axios": "^1.6.8",
     "effector": "^23.2.0",
     "effector-react": "^23.2.0",
     "react": "^18.2.0",

@@ -1,8 +1,9 @@
-import { createEvent, createStore } from "effector";
+import { createStore } from "effector";
 import { IBook } from "../interfaces/IBook";
-import { createBookFx } from "../api/addBookApi";
+import { createBookFx, getBooksFx } from "../api/addBookApi";
 
 export const $books = createStore<IBook[]>([]);
 
 
 $books.on(createBookFx.doneData, (book, newBook) => [...book, newBook]);
+$books.on(getBooksFx.doneData, (_, books) => books);
