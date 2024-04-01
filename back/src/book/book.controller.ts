@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { BookService } from './book.service';
 import { CreateBookDTO } from './dto/CreateBookDTO';
 
@@ -14,7 +14,7 @@ export class BookController {
 
 
     @Post("createBook")
-    async CreateBook(data: CreateBookDTO) {
+    async CreateBook(@Body() data: CreateBookDTO) {
         return this.bookService.createBook(data);
     }
 }

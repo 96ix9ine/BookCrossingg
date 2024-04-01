@@ -20,16 +20,16 @@ export class BookService {
 
 
     async createBook(data: CreateBookDTO) {
-        return await this.prismaService.book.create({data: {
-            title: data.title,
-            author: data.author,
-            descripton: data.description,
-            genre: data.genre,
-            dealType: data.dealType,
-            damageLevel: data.damageLevel,
-            imagePath: data.imagePath
-        }})
-        
-        
+        return await this.prismaService.book.create({
+            data: {
+                title: data.title,
+                author: data.author,
+                descripton: data.description,
+                genre: data.genre,
+                dealType: data.dealType,
+                damageLevel: data.damageLevel,
+                imagePath: data.imagePath
+            }
+        })
     }
 }
