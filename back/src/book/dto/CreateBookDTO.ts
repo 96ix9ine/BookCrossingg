@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
 
 
 export class CreateBookDTO {
@@ -37,4 +37,9 @@ export class CreateBookDTO {
     @IsNotEmpty()
     @IsString()
     imagePath: string
+
+
+    @IsNotEmpty()
+    @IsString()
+    userId?: string
 }

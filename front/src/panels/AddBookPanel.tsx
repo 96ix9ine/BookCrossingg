@@ -37,6 +37,7 @@ import { useUnit } from "effector-react";
 import { $books } from "../store/addBook";
 import { createBookFx } from "../api/addBookApi";
 import { IBook } from "../interfaces/IBook";
+import { $user } from "../store/user";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -51,6 +52,8 @@ const AddBookPanel = (): JSX.Element => {
     const [imageUrl, setImageUrl] = useState<string>("");
 
     const book = useUnit($books);
+    const user = useUnit($user);
+
 
     const selectGenres = [
         {
@@ -118,7 +121,8 @@ const AddBookPanel = (): JSX.Element => {
             genre: bookGenre,
             dealType: bookDealType,
             damageLevel: bookDamageLevel,
-            imagePath: imageUrl
+            imagePath: imageUrl,
+            userId: user?.id
         }
 
         return await createBookFx(newBook);

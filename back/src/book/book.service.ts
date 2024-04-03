@@ -28,7 +28,8 @@ export class BookService {
                 genre: data.genre,
                 dealType: data.dealType,
                 damageLevel: data.damageLevel,
-                imagePath: data.imagePath
+                imagePath: data.imagePath,
+                userId: data.userId,
             }
         })
     }

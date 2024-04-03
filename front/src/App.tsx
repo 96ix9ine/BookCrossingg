@@ -10,6 +10,7 @@ import { CatalogPanel } from './panels/CatalogPanel';
 import Profile from './panels/Profile';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from './store/user';
+import { createUserFx } from './api/addUser';
 
 
 export const App = () => {
@@ -26,6 +27,9 @@ export const App = () => {
 
       // добавление пользователя в состояние (../store/user.ts)
       setUser(user);
+
+      // Добавление ID пользователя в базу данных.
+      createUserFx(user.id);
     }
     fetchData();
   }, []);
