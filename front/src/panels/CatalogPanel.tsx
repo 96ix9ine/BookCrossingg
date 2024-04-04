@@ -38,7 +38,9 @@ export const CatalogPanel: React.FC = () => {
                     {
                         books.map(bookItem => 
                             <Group className='book__item'>
-                                <img className='book_item-image' src={bookItem.imagePath} alt="" />
+                                <Div className='book_div_item-image'>
+                                    <img className='book_item-image' src={bookItem.imagePath} alt="" />
+                                </Div>
                                 <Div className='book__item-textContent'>
                                     <Title className='book__name'>{bookItem.title}</Title>
                                     <Text className='book__descr'>{bookItem.author}</Text>

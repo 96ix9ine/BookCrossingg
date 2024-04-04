@@ -95,12 +95,13 @@ const AddBookPanel = (): JSX.Element => {
         const file = event.target.files[0];
         const imageURL = URL.createObjectURL(file);
         setImageUrl(imageURL);
+        setBookImageFile(file);
     }
 
 
     useEffect(() => {
         console.log(imageUrl);
-    }, [imageUrl]);
+    }, [imageUrl, bookImageFile]);
 
 
     const resetBookData = () => {
@@ -185,7 +186,7 @@ const AddBookPanel = (): JSX.Element => {
                             {
                                 bookImageFile 
                                 ? 
-                                    <img src={imageUrl} /> 
+                                    <img src={URL.createObjectURL(bookImageFile)} /> 
                                 : 
                                     <Icon28AddOutline width={47} height={47} style={{color: "#A5A5A5"}}/>
                             }
