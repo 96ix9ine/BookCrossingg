@@ -104,14 +104,37 @@
     
     .file__wrapper {
         padding: 0;
+        width: 200px;
+        height: 200px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
 
         .file {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-top: 6px;
-            padding: 45px 17px;
+            width: 200px;
+            height: 200px;
+            min-width: 100px;
+            min-height: 100px;
+        }
+        .file .vkuiButton__in {
+            justify-content: center !important;
+        }
+        .file .vkuiButton__content {
+            padding: 0 !important;
+        }
+        
+        .file img {
+            width: auto;
+            height: auto;
+            max-width: 200px;
+            max-height: 200px;
+            aspect-ratio: 1/1;
         }
     }
 
