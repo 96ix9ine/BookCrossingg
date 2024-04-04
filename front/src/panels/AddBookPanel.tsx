@@ -38,6 +38,7 @@ import { $books } from "../store/addBook";
 import { createBookFx } from "../api/addBookApi";
 import { IBook } from "../interfaces/IBook";
 import { $user } from "../store/user";
+import axios from "axios";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -50,6 +51,9 @@ const AddBookPanel = (): JSX.Element => {
     const [bookDamageLevel, setBookDamageLevel] = useState<string>("");
     const [bookImageFile, setBookImageFile] = useState<any | null>(null);
     const [imageUrl, setImageUrl] = useState<string>("");
+
+    const [selectedImages, setSelectedImages] = useState<any>([]);
+    const [images, setImages] = useState<any>([]);
 
     const book = useUnit($books);
     const user = useUnit($user);
@@ -91,16 +95,64 @@ const AddBookPanel = (): JSX.Element => {
     ];
 
 
-    const handleFileUpload = (event: any) => {
-        const file = event.target.files[0];
-        const imageURL = URL.createObjectURL(file);
-        setImageUrl(imageURL);
-    }
+    // const handleImageUpload = (event: any) => {
+    //     const file = event.target.files[0];
+    //     const imageURL = URL.createObjectURL(file);
+    //     setImageUrl(imageURL);
+    // }
+
+
+    const handleImageChange = (event) => {
+        const files = event.target.files;
+        setSelectedImages([...selectedImages, ...files]);
+    };
+
+
+    const handleImageUpload = async () => {
+        try {
+            const formData = new FormData();
+            
+            selectedImages.forEach((image: any) => {
+                formData.append('images', image);
+            });
+
+            const bookId = "1";
+            formData.append("book_id", bookId)
+        
+            const response = await axios.post('http://localhost:3000/book/loadImage', formData, {
+                onUploadProgress: (progressEvent) => {
+                    const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+                    console.log(progress);
+                    console.log(formData)
+            },
+            });
+
+            
+            return response;
+        } 
+        
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+
+    const getUserImages = async (bookId: string) => {
+        try {
+            const response = await axios.get('http://localhost:3000/user/' + bookId +'/images');
+            console.log(response);
+            setImages(response.data)
+        } 
+        
+        catch (error) {
+            console.error(error);
+        }
+    } 
 
 
     useEffect(() => {
-        console.log(imageUrl);
-    }, [imageUrl]);
+        console.log(selectedImages);
+    }, [selectedImages]);
 
 
     const resetBookData = () => {
@@ -114,6 +166,8 @@ const AddBookPanel = (): JSX.Element => {
 
 
     const addBook = async () => {
+        // const userid = user?.id.toString();
+
         const newBook: IBook = {
             title: bookName,
             author: bookAuthor,
@@ -121,8 +175,7 @@ const AddBookPanel = (): JSX.Element => {
             genre: bookGenre,
             dealType: bookDealType,
             damageLevel: bookDamageLevel,
-            imagePath: imageUrl,
-            userId: user?.id
+            userId: user?.id.toString()
         }
 
         return await createBookFx(newBook);
@@ -180,12 +233,14 @@ const AddBookPanel = (): JSX.Element => {
                             className="file"
                             size="l"
                             appearance="overlay"
-                            onChange={handleFileUpload}
+                            onClick={handleImageChange}
                         >
                             {
                                 bookImageFile 
                                 ? 
-                                    <img src={imageUrl} /> 
+                                    images.map((image: any, id: any) => {
+                                        return <img key={id} src={'http://localhost:3000/' + image.path}/>
+                                    })
                                 : 
                                     <Icon28AddOutline width={47} height={47} style={{color: "#A5A5A5"}}/>
                             }
@@ -298,7 +353,7 @@ const AddBookPanel = (): JSX.Element => {
                     <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
                     <CellButton 
                         className="addBook__button"
-                        onClick={() => {addBook(); resetBookData()}}
+                        onClick={() => {addBook(); resetBookData(); handleImageUpload}}
                     >
                         <span>Добавить книгу</span>
                     </CellButton>

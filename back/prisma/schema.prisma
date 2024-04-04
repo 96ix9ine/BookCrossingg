@@ -13,23 +13,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id    String @id @default(uuid())
   vkId  String
   books Book[]
 }
 
-
 model Book {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   author      String
   descripton  String
   genre       String
   dealType    String
   damageLevel String
-  imagePath   String
+
+  images Image[]
+
   user        User?   @relation(fields: [userId], references: [id])
-  userId      String? @map("user_id")
+  userId      String?
+}
+
+model Image {
+  id       String @id @default(uuid())
+  path     String
+  filename String
+  
+  bookId   String @map("book_id")
+  book     Book @relation(fields: [bookId], references: [id])
 }

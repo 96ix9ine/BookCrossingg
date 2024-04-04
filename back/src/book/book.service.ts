@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateBookDTO } from './dto/CreateBookDTO';
+import * as fs from 'fs/promises';
 
 @Injectable()
 export class BookService {
+    
     constructor(private readonly prismaService: PrismaService) {}
 
 
@@ -19,6 +21,50 @@ export class BookService {
     }
 
 
+    async loadImages(images: any, bookId: string) {
+        const savedImages = [];
+    
+        for (const image of images) {
+          const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+          const imagePath = `images/${timestamp}_${image.originalname}`;
+    
+          savedImages.push(imagePath);
+    
+          await fs.writeFile(`${__dirname}/../uploads/${imagePath}`, image.buffer);
+        }
+    
+        const book = await this.prismaService.book.findUnique({
+          where: { 
+            id: bookId 
+          }
+        });
+    
+        if (!book) {
+          throw new Error('Книга не найдена');
+        }
+    
+        const createdImages = await this.prismaService.image.createMany({
+          data: savedImages.map((path) => ({
+            path,
+            bookId,
+            filename: path.split('/').pop(),
+          }))
+        });
+    
+        return createdImages;
+    }
+
+
+    async getBookImages(id: string) {
+        const userImages = await this.prismaService.image.findMany({
+          where: {
+            id: id
+          }
+        }) 
+        return userImages;
+    }
+
+
     async createBook(data: CreateBookDTO) {
         return await this.prismaService.book.create({
             data: {
@@ -28,7 +74,6 @@ export class BookService {
                 genre: data.genre,
                 dealType: data.dealType,
                 damageLevel: data.damageLevel,
-                imagePath: data.imagePath,
                 userId: data.userId,
             }
         })
