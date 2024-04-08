@@ -26,7 +26,6 @@ import {
     Icon28ArrowLeftOutline,
     Icon28CheckCircleOutline
 } from "@vkontakte/icons";
-
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { $books } from "../store/addBook";
