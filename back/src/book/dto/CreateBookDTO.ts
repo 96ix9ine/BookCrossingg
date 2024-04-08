@@ -41,5 +41,5 @@ export class CreateBookDTO {
 
     @IsNotEmpty()
     @IsString()
-    userId?: string
+    userId: string
 }
