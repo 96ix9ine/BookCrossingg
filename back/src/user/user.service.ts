@@ -2,15 +2,25 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDTO } from './dto/CreateUserDTO';
 
+
 @Injectable()
 export class UserService {
     constructor(private readonly prismaService: PrismaService) {}
 
 
     async getUser(vkId: string) {
-        return await this.prismaService.user.findFirst({where: {
-            vkId: vkId,
-        }});
+
+        try {
+            const data = await this.prismaService.user.findFirst({where: {
+                vkId: vkId,
+            }});
+    
+            return data;
+        }
+
+        catch (e) {
+            throw new Error("Пользователь не найден")
+        }
     }
 
 
@@ -26,7 +36,7 @@ export class UserService {
         }
 
         catch (e) {
-            console.log(e);
+            console.log(`${e}, что то пошло не так`);
         }
     }
 

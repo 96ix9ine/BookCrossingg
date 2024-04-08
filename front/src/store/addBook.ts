@@ -1,5 +1,5 @@
 import { createStore } from "effector";
-import { IBook } from "../interfaces/IBook";
+import { IBook } from "../interfaces/interface";
 import { createBookFx, getBooksFx } from "../api/addBookApi";
 
 export const $books = createStore<IBook[]>([]);

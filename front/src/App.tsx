@@ -8,26 +8,20 @@ import CustomMap from './panels/Map';
 import AddBookPanel from './panels/AddBookPanel';
 import { CatalogPanel } from './panels/CatalogPanel';
 import Profile from './panels/Profile';
-import { useUnit } from 'effector-react';
+import { createUserFx, getUserIdFx } from './api/addUserApi';
 import { $user, setUser } from './store/user';
-import { createUserFx } from './api/addUser';
+import { useUnit } from 'effector-react';
 
 
 export const App = () => {
 	const { view: activeView } = useActiveVkuiLocation();
 	const activePanel = useGetPanelForView("default_view");
 
-  // состояние из ../store/user.ts вместо useState<UserInfo | undefined>();
-  const user = useUnit($user);
-
-
   useEffect(() => {
     async function fetchData() {
       const user = await bridge.send('VKWebAppGetUserInfo');
 
-      // добавление пользователя в состояние (../store/user.ts)
       setUser(user);
-
       // Добавление ID пользователя в базу данных.
       createUserFx(user.id);
     }
