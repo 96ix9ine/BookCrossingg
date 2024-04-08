@@ -11,6 +11,7 @@ import Profile from './panels/Profile';
 import { useUnit } from 'effector-react';
 import { $user, setUser } from './store/user';
 import { createUserFx } from './api/addUser';
+import AboutBook from './panels/AboutBook';
 
 
 export const App = () => {
@@ -41,6 +42,7 @@ export const App = () => {
         <View nav={activeView} activePanel={activePanel}>
           <CatalogPanel nav="home_panel"/>
           <Profile nav="profile_panel" />
+          <AboutBook nav="aboutbook_panel" />
           <AddBookPanel nav="addbook_panel"/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
         </View>
