@@ -5,5 +5,13 @@ export interface IBook {
     genre: string,
     dealType: string,
     damageLevel: string,
-    userId?: string
+    userId: string
+}
+
+
+export interface IDataState extends IBook {}
+
+
+export interface IServerUser {
+    vkId: string,
 }

@@ -26,7 +26,13 @@ export class BookController {
     }
 
 
-    @Get("getBook")
+    @Get("getBook/:bookId")
+    async GetBook(@Param('bookId') bookId: string) {
+        return this.bookService.getBook(bookId);
+    }
+
+
+    @Get("getBooks")
     async GetBooks() {
         return this.bookService.getBooks();
     }
