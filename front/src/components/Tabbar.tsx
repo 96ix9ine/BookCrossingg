@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Tabbar, TabbarItem, Badge, NavIdProps} from '@vkontakte/vkui';
 import { Icon28UserCircleOutline, Icon28MessageOutline, Icon28PlaceOutline, Icon28AddCircleFillBlue, Icon28BillheadOutline } from '@vkontakte/icons';
 import { useRouteNavigator }from '@vkontakte/vk-mini-apps-router';
 import  bridge, { UserInfo } from "@vkontakte/vk-bridge";
+import anime from 'animejs/lib/anime.es.js';
 
 export interface ProfileProps extends NavIdProps {
   fetchedUser?: UserInfo;
@@ -11,6 +12,7 @@ export interface ProfileProps extends NavIdProps {
 export const TabbarComponent: React.FC = () => {
   const [indicator, setIndicator] = useState<string>('one');
   const router = useRouteNavigator();
+  const tabbarRef = useRef<HTMLDivElement>(null);
 
   const [fetchedUser, setUser] = useState<UserInfo | undefined>();
 
@@ -29,8 +31,22 @@ export const TabbarComponent: React.FC = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    anime({
+      targets: tabbarRef.current,
+      background: [
+        'linear-gradient(105deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)',
+        'linear-gradient(-105deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)'
+      ],
+      direction: 'alternate',
+      loop: true,
+      easing: 'easeInOutSine',
+      duration: 6800,
+    });
+  }, []);
+
   return (
-      <Tabbar className="tabbar">
+      <Tabbar className="tabbar" getRootRef={tabbarRef}>
         <TabbarItem
           selected={indicator === 'one'}
           onClick={() => [setIndicator('one'), router.push('/')]}

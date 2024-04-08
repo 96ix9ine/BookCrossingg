@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
@@ -18,6 +18,7 @@ import { useUnit } from 'effector-react';
 import { $user } from '../store/user';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
+import anime from 'animejs/lib/anime.es.js';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -36,6 +37,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
     const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
     const { first_name, last_name } = { ...fetchedUser };
 
+    const modalRef = useRef<HTMLDivElement>(null);
       
     const handlePlacemarkClick = (placemarkId: number) => {
         setActivePlacemarkId(placemarkId);
@@ -116,6 +118,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                 <ModalPage
                     id={`placemarkInfo-${activePlacemarkId}`}
                     className='modal__window_background'
+                    getRootRef={modalRef}
                     onClose={closeModal}
                     header={
                         <div className='modal__window_header'>
@@ -125,6 +128,20 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                     }
                     settlingHeight={60}
                     dynamicContentHeight={true}
+                    onOpen={() => {
+                        anime({
+                            targets: '.vkuiModalPage__in',
+                            background: [
+                                'linear-gradient(75deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)',
+                                'linear-gradient(-75deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)'
+                            ],
+                            direction: 'alternate',
+                            loop: true,
+                            easing: 'easeInOutSine',
+                            duration: 6800,
+                            opacity: 1
+                        });
+                    }}
                 >                   
                     <div className="modal__window">
                         <h2 className="modal__window_title item"><strong>Имя:</strong>{PlacemarkData[activePlacemarkId].name}</h2>
