@@ -311,7 +311,7 @@ export const PlacemarkData: Record<number, PlacemarkInfo> = {
     44: {
         name: "Живое слово",
         type: "Книжный магазин",
-        address: "просп. Героя России Е.Н. Родионова, 13",
+        address: "просп. Е.Н. Родионова, 13",
         time: "10:00 - 20:00",
         prompt: "Уточните время работы"
     },

@@ -21,7 +21,8 @@ import {
     Radio,
     Footer,
     RadioGroup,
-    Image
+    Image,
+    Snackbar
 } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
@@ -30,9 +31,10 @@ import {
     Icon12ChevronOutline, 
     Icon24Camera,
     Icon28AddOutline,
-    Icon28ArrowLeftOutline
+    Icon28ArrowLeftOutline,
+    Icon28CheckCircleOutline
 } from "@vkontakte/icons";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { $books } from "../store/addBook";
 import { createBookFx } from "../api/addBookApi";
@@ -57,6 +59,9 @@ const AddBookPanel = (): JSX.Element => {
 
     const book = useUnit($books);
     const user = useUnit($user);
+
+    const [text, setText] = useState<string>('');
+    const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
 
 
     const selectGenres = [
@@ -181,6 +186,18 @@ const AddBookPanel = (): JSX.Element => {
         return await createBookFx(newBook);
     }
     
+    const openSuccess = () => {
+        if (snackbar) return;
+        setSnackbar(
+            <Snackbar className="addbook_snackbar"
+                onClose={() => setSnackbar(null)}
+                before={<Icon28CheckCircleOutline fill="var(--vkui--color_icon_positive)" />}
+                duration={1000}
+            >
+                Книга успешно добавлена
+            </Snackbar>
+        );
+    };
 
     return (
         <Panel>
@@ -353,8 +370,13 @@ const AddBookPanel = (): JSX.Element => {
                     <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
                     <CellButton 
                         className="addBook__button"
-                        onClick={() => {addBook(); resetBookData(); handleImageUpload}}
+                        onClick={() => {addBook(); resetBookData(); handleImageUpload; openSuccess()}}
                     >
+                        {text && (
+                        <Group>
+                            <Div>{text}</Div>
+                        </Group>)}
+                        {snackbar}
                         <span>Добавить книгу</span>
                     </CellButton>
                 </Group>

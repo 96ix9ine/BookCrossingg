@@ -1,30 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { ModalPage, ModalPageHeader, ModalRoot, Panel } from '@vkontakte/vkui';
+import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
+import bridge, { UserInfo } from '@vkontakte/vk-bridge';
 import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
 import { AccordionVKID } from '../components/MapFilter';
 import '../styles/Placemark.scss';
 import '../styles/ModalWindow.scss';
 import '../styles/MapFilter.scss';
 import '../styles/Tabbar.scss';
+import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
 
-interface CustomMapProps {
+import { $books } from '../store/addBook';
+import { getBooksFx } from '../api/addBookApi';
+import { useUnit } from 'effector-react';
+import { $user } from '../store/user';
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+
+
+interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
+    fetchedUser?: UserInfo;
 }
 
-const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
+const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) => {
 
     const [activePlacemarkId, setActivePlacemarkId] = useState<number | null>(null);
     const [selectedType, setSelectedType] = useState<string | null>(null);
+    const [modalActive, setModalActive] = useState<boolean>(true);
+    const router = useRouteNavigator();
+
+    const books = useUnit($books);
+    const user = useUnit($user);
+    const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
+    const { first_name, last_name } = { ...fetchedUser };
+
       
     const handlePlacemarkClick = (placemarkId: number) => {
         setActivePlacemarkId(placemarkId);
+        setModalActive(false);
     };
 
     const closeModal = () => {
         setActivePlacemarkId(null);
+        setModalActive(true);
     };
 
     // const filteredCoordinates = useMemo(() => {
@@ -48,9 +68,23 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                 reactify,
                 ymaps
             });
+
+            getBooksFx();
+
+            async function fetchData() {
+                try {
+                    const user = await bridge.send('VKWebAppGetUserInfo');
+                    setFetchedUser(user);
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                }
+            }
+            fetchData();
         }
 
-    }, []); 
+    }, []);
+
+    
 
     return (
         <Panel>
@@ -81,9 +115,15 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                 <ModalRoot activeModal={`placemarkInfo-${activePlacemarkId}`}>
                 <ModalPage
                     id={`placemarkInfo-${activePlacemarkId}`}
+                    className='modal__window_background'
                     onClose={closeModal}
-                    header={<ModalPageHeader>Информация о метке</ModalPageHeader>}
-                    settlingHeight={50}
+                    header={
+                        <div className='modal__window_header'>
+                            <ModalPageHeader>Информация о метке</ModalPageHeader>
+                            <Button className='modal__window_button' onClick={() => router.push("/addbook")}>Подтвердить</Button>
+                        </div>
+                    }
+                    settlingHeight={60}
                     dynamicContentHeight={true}
                 >                   
                     <div className="modal__window">
@@ -92,11 +132,30 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }) => {
                         <p className="modal__window_address item"><strong>Адрес:</strong> {PlacemarkData[activePlacemarkId].address}</p>
                         <p className="modal__window_time item"><strong>Время работы:</strong> {PlacemarkData[activePlacemarkId].time}</p>
                         <p className="modal__window_prompt item"><strong>Примечание:</strong> {PlacemarkData[activePlacemarkId].prompt}</p>
+                        <p className='modal__window_listbooks item'>Список книг:</p>
+
+                        <Div className='modal__window_listbooks-container'>
+                            {
+                                books.map(bookItem => 
+                                <Group className='modal__window_book_container' separator='hide'>
+                                        <Div className='modal__window_div_image'>
+                                            <img className='modal__window_image' src={bookItem.imagePath} alt="" />
+                                        </Div>
+                                        <Div className='modal__window_book-textContent'>
+                                            <Title className='modal__window_book__name'>{bookItem.title}</Title>
+                                            <Title className='modal__window_book__descr'>{bookItem.author}</Title>
+                                            <Title className='modal__window_book__descr'>{bookItem.genre}</Title>
+                                            <Title className='modal__window_book__descr'>{`${first_name + " " + last_name}`}</Title>
+                                        </Div>
+                                </Group>
+                                )
+                            }
+                        </Div>
                     </div>
                 </ModalPage>
                 </ModalRoot>
             )}
-            <TabbarComponent/>
+            {modalActive && <TabbarComponent/>}
         </Panel>
     );
 };
