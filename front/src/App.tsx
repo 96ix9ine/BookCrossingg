@@ -10,7 +10,6 @@ import { CatalogPanel } from './panels/CatalogPanel';
 import Profile from './panels/Profile';
 import { createUserFx, getUserIdFx } from './api/addUserApi';
 import { $user, setUser } from './store/user';
-
 import AboutBook from './panels/AboutBook';
 import { useUnit } from 'effector-react';
 
