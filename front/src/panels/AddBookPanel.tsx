@@ -46,9 +46,6 @@ const AddBookPanel = (): JSX.Element => {
     const userServer = useUnit($userServerStore);
     const userVk = useUnit($user);
 
-    const [bufferId, setBufferId] = useState("");
-    
-
     const [formData, setFormData] = useState<IDataState>(initialState);
     const [go, setGo] = useState({
         start: false,
@@ -100,8 +97,6 @@ const AddBookPanel = (): JSX.Element => {
 
 
     const handleSubmit = useCallback(async () => {
-        console.log(userServer);
-        console.log(userVk?.id);
         let user_Id: string = "";
 
         if (userVk != null) {
