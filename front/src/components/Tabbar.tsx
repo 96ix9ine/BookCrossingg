@@ -65,7 +65,7 @@ export const TabbarComponent: React.FC = () => {
         <TabbarItem selected={indicator === 'three'} onClick={() => [setIndicator('three'), router.push('/addbook')]} text="Добавить">
           <Icon28AddCircleFillBlue />
         </TabbarItem>
-        <TabbarItem selected={indicator === 'four'} onClick={() => [setIndicator('four'), router.push('/map')]} text="Места">
+        <TabbarItem selected={indicator === 'four'} onClick={() => [setIndicator('four'), router.push('/mapTabbar')]} text="Места">
           <Icon28PlaceOutline />
         </TabbarItem>
         <TabbarItem selected={indicator === 'five'} onClick={() => [setIndicator('five'), router.push('/profile')]} text="Профиль">

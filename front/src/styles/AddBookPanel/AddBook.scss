@@ -152,9 +152,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 8vh;
     border-radius: 10px;
     margin-top: 39px;
-    background-color: #2688EB;
+    background-color: #2688EB !important;
 
 
     span {

@@ -4,6 +4,7 @@ import { View, SplitLayout, SplitCol } from '@vkontakte/vkui';
 import { useActiveVkuiLocation, useGetPanelForView } from '@vkontakte/vk-mini-apps-router';
 import { coordinates } from './components/MapCoordinates';
 
+import CustomMapTabbar from './panels/MapTabbar';
 import CustomMap from './panels/Map';
 import AddBookPanel from './panels/AddBookPanel';
 import { CatalogPanel } from './panels/CatalogPanel';
@@ -39,6 +40,7 @@ export const App = () => {
           <Profile nav="profile_panel" />
           <AboutBook nav="aboutbook_panel" />
           <AddBookPanel nav="addbook_panel"/>
+          <CustomMapTabbar nav="mapTabbar_panel" coordinates={coordinates}/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
         </View>
       </SplitCol>

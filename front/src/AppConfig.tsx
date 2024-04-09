@@ -26,6 +26,11 @@ export const AppConfig = () => {
       view: 'default_view',
     },
     {
+      path: 'mapTabbar',
+      panel: 'mapTabbar_panel',
+      view: 'default_view',
+    },
+    {
       path: 'aboutbook',
       panel: 'aboutbook_panel',
       view: 'default_view',

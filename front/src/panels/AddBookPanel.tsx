@@ -194,7 +194,7 @@ const AddBookPanel = (): JSX.Element => {
 
     return (
         <Panel>
-            <Group separator="show">
+            <Group separator="hide">
                 <PanelHeader
                     className="addBook__panelheader"
                     id="addbook"
@@ -364,7 +364,7 @@ const AddBookPanel = (): JSX.Element => {
                             </RadioGroup>
                         </div>
                         <FormItem>
-                            <Group>
+                            <Group separator="hide">
                                 <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
                                 <Button 
                                     type="submit"
@@ -382,10 +382,6 @@ const AddBookPanel = (): JSX.Element => {
                 
                 
             </Group>
-
-            <Footer>
-                
-            </Footer>
         </Panel>
     );
 }
