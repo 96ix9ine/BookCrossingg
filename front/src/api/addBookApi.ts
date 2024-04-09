@@ -34,7 +34,6 @@ export const handleImageUpload = async (selectedImages: any, bookId: string) => 
 
 export const handleCreateBook = async (userId: string, formData: IDataState) => {
         const data = { ...formData, userId: userId };
-        console.log(userId)
     
         return await createBookFx(data);
 }
