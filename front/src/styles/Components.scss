@@ -35,12 +35,20 @@
             .book__name {
                 font-family: "Roboto-Medium";
                 font-size: 24px;
+                max-width: 150px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .book__descr {
                 color: #A5A5A5;
                 font-family: "Roboto-Regular";
                 font-size: 20px;
+                max-width: 150px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
     }
