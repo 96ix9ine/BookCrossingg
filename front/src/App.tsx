@@ -14,6 +14,7 @@ import AboutBook from './panels/AboutBook';
 import { useUnit } from 'effector-react';
 
 
+
 export const App = () => {
 	const { view: activeView } = useActiveVkuiLocation();
 	const activePanel = useGetPanelForView("default_view");

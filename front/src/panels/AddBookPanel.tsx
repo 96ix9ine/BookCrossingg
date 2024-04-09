@@ -57,9 +57,6 @@ const AddBookPanel = (): JSX.Element => {
         bookId: '',
     });
 
-    const [text, setText] = useState<string>('');
-    const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
-
 
     const selectGenres = [
         {
