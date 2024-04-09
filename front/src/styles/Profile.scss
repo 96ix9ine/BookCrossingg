@@ -5,6 +5,10 @@
 }
 
 .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto;
     padding: 3% 7%;
 }
@@ -24,16 +28,26 @@
 .profile_info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 20%;
-    position: relative;
 }
-
+.profile_info .vkuiSimpleCell__before {
+    padding: 0;
+}
+.user_books {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .header {
     color: #3288FF;
 }
 
 .no_books {
     color: #818C99;
+    text-align: center;
 }
 
 .user_books_list {

@@ -22,23 +22,22 @@ export interface ProfileProps extends NavIdProps {
     const profileBackgroundRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      anime({
-        targets: profileBackgroundRef.current,
-        background: [
-          'linear-gradient(90deg, rgba(131,140,152,1) 0%, rgba(38,136,235,1) 50%, rgba(0,0,0,1) 100%)',
-          'linear-gradient(-90deg, rgba(131,140,152,1) 0%, rgba(38,136,235,1) 50%, rgba(0,0,0,1) 100%)'
-        ],
-        direction: 'alternate',
-        loop: true,
-        easing: 'easeInOutSine',
-        duration: 20000,
-      });
+      // anime({
+      //   targets: profileBackgroundRef.current,
+      //   background: [
+      //     'linear-gradient(90deg, rgba(131,140,152,1) 0%, rgba(38,136,235,1) 50%, rgba(0,0,0,1) 100%)',
+      //     'linear-gradient(-90deg, rgba(131,140,152,1) 0%, rgba(38,136,235,1) 50%, rgba(0,0,0,1) 100%)'
+      //   ],
+      //   direction: 'alternate',
+      //   loop: true,
+      //   easing: 'easeInOutSine',
+      //   duration: 20000,
+      // });
     }, [])
   
     return (
       <Panel>
-          <Group>
-          <div className='user_background' ></div>
+          <Group separator="hide" header={<div className='user_background'/>}>
             <div className='profile' ref={profileBackgroundRef} >
             <SimpleCell className='profile_info' before={<Avatar size={82} src={photo_max_orig} />}>
               <p>{`${first_name}`}</p>
