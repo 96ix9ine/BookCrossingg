@@ -23,13 +23,13 @@ export const TabbarComponent: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      const user = await bridge.send('VKWebAppGetUserInfo');
-      setUser(user);
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const user = await bridge.send('VKWebAppGetUserInfo');
+  //     setUser(user);
+  //   }
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     anime({

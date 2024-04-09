@@ -14,13 +14,13 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(uuid())
+  id    String @id @default(cuid())
   vkId  String
   books Book[]
 }
 
 model Book {
-  id          String  @id @default(uuid())
+  id          String @id @default(cuid())
   title       String
   author      String
   descripton  String
@@ -30,15 +30,15 @@ model Book {
 
   images Image[]
 
-  user        User?   @relation(fields: [userId], references: [id])
-  userId      String?
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model Image {
-  id       String @id @default(uuid())
+  id       String @id @default(cuid())
   path     String
   filename String
-  
-  bookId   String @map("book_id")
-  book     Book @relation(fields: [bookId], references: [id])
+
+  bookId String @map("book_id")
+  book   Book   @relation(fields: [bookId], references: [id])
 }

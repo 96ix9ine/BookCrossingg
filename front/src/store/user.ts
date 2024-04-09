@@ -1,6 +1,8 @@
-import { UserInfo } from "@vkontakte/vk-bridge";
 import { createEvent, createStore } from "effector";
-import { createUserFx } from "../api/addUser";
+import { createUserFx } from "../api/addUserApi";
+import { IServerUser } from "../interfaces/interface";
+import { UserInitialState } from "../constatns/UserStateConstant";
+import { UserInfo } from "@vkontakte/vk-bridge";
 
 
 export const $user = createStore<UserInfo | null>(null);
