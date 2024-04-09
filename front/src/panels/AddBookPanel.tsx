@@ -124,6 +124,7 @@ const AddBookPanel = (): JSX.Element => {
         // console.log(result.id)
 
         setDone(true);
+        resetBookData();
     }, [formData, userServer])
 
 
@@ -158,6 +159,7 @@ const AddBookPanel = (): JSX.Element => {
 
     const resetBookData = () => {
         setFormData(initialState);
+        setDone(false);
     }
 
 

@@ -22,7 +22,7 @@ export const CatalogPanel: React.FC = () => {
 
     useEffect(() => {
         getBooksFx();
-    }, [])
+    }, [books])
 
     return (
         <Panel>
