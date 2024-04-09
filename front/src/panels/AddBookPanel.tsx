@@ -14,9 +14,7 @@ import {
     Radio,
     Footer,
     RadioGroup,
-    Image,
     Snackbar,
-    RadioProps
 } from "@vkontakte/vkui";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
@@ -47,9 +45,6 @@ const AddBookPanel = (): JSX.Element => {
 
     const userServer = useUnit($userServerStore);
     const userVk = useUnit($user);
-
-    const [bufferId, setBufferId] = useState("");
-    
 
     const [formData, setFormData] = useState<IDataState>(initialState);
     const [go, setGo] = useState({
@@ -102,8 +97,6 @@ const AddBookPanel = (): JSX.Element => {
 
 
     const handleSubmit = useCallback(async () => {
-        console.log(userServer);
-        console.log(userVk?.id);
         let user_Id: string = "";
 
         if (userVk != null) {
@@ -163,22 +156,6 @@ const AddBookPanel = (): JSX.Element => {
     }
 
 
-    const addBook = async () => {
-        const userid = userServer?.userId.toString();
-
-        const newBook: IBook = {
-            title: formData.title,
-            author: formData.author,
-            description: formData.description,
-            genre: formData.genre,
-            dealType: formData.dealType,
-            damageLevel: formData.damageLevel,
-            userId: userid
-        }
-
-        return await createBookFx(newBook);
-    }
-    
     const openSuccess = () => {
         if (snackbar) return;
         setSnackbar(

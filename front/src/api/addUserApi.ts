@@ -17,6 +17,6 @@ export const createUserFx = createEffect(async (vkId: number) => {
     // console.log(vkIdString)
 
     const { data } = await api.post("api/user/checkUser", { vkId: vkIdString });
-    // console.log(data);
+    console.log(data);
     return data;
 });
