@@ -112,7 +112,7 @@ const AddBookPanel = (): JSX.Element => {
 
         // console.log(`${user_Id.id} userId`);
 
-        const result = await handleCreateBook(user_Id, formData);
+        const result = await handleCreateBook(user_Id.id, formData);
 
         if (result.id !== '') {
             setGo({
