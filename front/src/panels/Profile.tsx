@@ -15,7 +15,7 @@ import { $user } from "../store/user";
 
 export interface ProfileProps extends NavIdProps {
     fetchedUser?: UserInfo;
-  }
+}
   
 const Profile = () => {
   // const { photo_max_orig, city, first_name, id } = { ...fetchedUser };
