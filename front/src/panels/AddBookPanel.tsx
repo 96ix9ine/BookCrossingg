@@ -89,13 +89,6 @@ const AddBookPanel = (): JSX.Element => {
     ];
 
 
-    // const handleImageUpload = (event: any) => {
-    //     const file = event.target.files[0];
-    //     const imageURL = URL.createObjectURL(file);
-    //     setImageUrl(imageURL);
-    // }
-
-
     const handleSubmit = useCallback(async () => {
         let user_Id: string = "";
 
@@ -103,7 +96,7 @@ const AddBookPanel = (): JSX.Element => {
             user_Id = await getUserIdFx(userVk.id);
         }
 
-        // console.log(`${user_Id.id} userId`);
+        console.log(`${user_Id.id} userId`);
 
         const result = await handleCreateBook(user_Id.id, formData);
 
@@ -146,7 +139,7 @@ const AddBookPanel = (): JSX.Element => {
 
 
     useEffect(() => {
-        // handleImageUpload(selectedImages, go.bookId);
+        handleImageUpload(selectedImages, go.bookId);
     }, [selectedImages]);
 
 

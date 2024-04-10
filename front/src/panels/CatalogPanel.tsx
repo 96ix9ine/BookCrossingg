@@ -5,21 +5,29 @@ import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
 import { $books } from '../store/addBook';
 import { useUnit } from 'effector-react';
-import { getBooksFx } from '../api/addBookApi';
+import { getUserBooksFx } from '../api/addBookApi';
+import { createUserFx } from '../api/addUserApi';
+import { $user, $userServerStore } from '../store/user';
 
 
 export const CatalogPanel: React.FC = () => {
     const router = useRouteNavigator();
     const [search, setSearch] = useState<string>('');
     const books = useUnit($books);
+    const user = useUnit($userServerStore);
     
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
 
     useEffect(() => {
-        getBooksFx(books);
-    }, [])
+        async function getBooks() {
+            await getUserBooksFx(user.id);
+        }
+      
+        getBooks();
+        console.log("asdasd")
+    }, [user])
 
     return (
         <Panel>

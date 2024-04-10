@@ -66,7 +66,7 @@ export class BookService {
           filename: path.split('/').pop(),
         }))
       });
-  
+      
       return createdImages;
   }
 
@@ -114,10 +114,17 @@ export class BookService {
 
 
   async getUserBooks(userId: string) {
-    return await this.prismaService.book.findMany({
-      where: {
-        userId: userId,
-      }
-    })
+    try {
+      return await this.prismaService.book.findMany({
+        where: {
+          userId: userId,
+        }
+      })
+    }
+
+    catch (e) {
+      console.log(e);
+    }
+    
   }
 }

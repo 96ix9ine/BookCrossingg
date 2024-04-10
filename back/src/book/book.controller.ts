@@ -38,10 +38,9 @@ export class BookController {
     }
 
 
-    @Get("getUserBooks")
-    async GetUserBooks(userId: string) {
+    @Get("getUserBooks/:userId")
+    async GetUserBooks(@Param(":userId") userId: string) {
       return this.bookService.getUserBooks(userId);
-
     }
 
 

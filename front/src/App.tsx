@@ -22,11 +22,11 @@ export const App = () => {
   useEffect(() => {
     async function fetchData() {
       const user = await bridge.send('VKWebAppGetUserInfo');
-
       setUser(user);
       // Добавление ID пользователя в базу данных.
       createUserFx(user.id);
     }
+    
     fetchData();
   }, []);
 

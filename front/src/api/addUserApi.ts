@@ -1,7 +1,5 @@
 import { createEffect } from "effector";
 import { api } from "./axiosInstance";
-import { $userServerStore } from "../store/user";
-import { useUnit } from "effector-react";
 
 
 export const getUserIdFx = createEffect(async (vkId: number) => {
@@ -14,9 +12,7 @@ export const getUserIdFx = createEffect(async (vkId: number) => {
 // Добавление ID пользователя в базу данных.
 export const createUserFx = createEffect(async (vkId: number) => {
     const vkIdString = vkId.toString();
-    // console.log(vkIdString)
 
     const { data } = await api.post("api/user/checkUser", { vkId: vkIdString });
-    console.log(data);
     return data;
 });

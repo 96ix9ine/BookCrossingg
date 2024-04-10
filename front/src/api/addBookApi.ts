@@ -14,15 +14,16 @@ export const handleImageUpload = async (selectedImages: any, bookId: string) => 
         });
 
         formData.append("bookId", bookId);
+
+        console.log(formData);
     
         const response = await axios.post('http://localhost:3000/api/book/loadImage', formData, {
-            onUploadProgress: (progressEvent) => {
+            onUploadProgress: (progressEvent: any) => {
                 const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-                // console.log(formData)
         },
         });
 
-        
+        console.log(response);
         return response;
     } 
     
@@ -33,16 +34,16 @@ export const handleImageUpload = async (selectedImages: any, bookId: string) => 
 
 
 export const handleCreateBook = async (userId: string, formData: IDataState) => {
-        const data = { ...formData, userId: userId };
-    
-        return await createBookFx(data);
+    const data = { ...formData, userId: userId };
+
+    return await createBookFx(data);
 }
 
 
 export const createBookFx = createEffect(async (book: IBook) => {
-        const { data } = await api.post("api/book/createBook", book);
-        console.log(book);
-        return data;
+    const { data } = await api.post("api/book/createBook", book);
+    console.log(book);
+    return data;
 });
 
 
@@ -53,13 +54,8 @@ export const getBookFx = createEffect(async (bookId: string) => {
 })
 
 
-export const getUserBooksFx = async (userId: string) => {
-    const { data } = await api.get("api/book/getBooks/" + userId);
+export const getUserBooksFx = createEffect(async (userId: string) => {
+    const { data } = await api.get("api/book/getUserBooks/" + userId);
 
     return data;
-}
-
-
-export const getBoksFx = () => {
-
-}
+});
