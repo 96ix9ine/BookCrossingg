@@ -13,7 +13,7 @@ import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
 
 import { $books } from '../store/addBook';
-import { getBooksFx } from '../api/addBookApi';
+import { getUserBooksFx } from '../api/addBookApi';
 import { useUnit } from 'effector-react';
 import { $user } from '../store/user';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -71,7 +71,7 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                 ymaps
             });
 
-            getBooksFx();
+            getUserBooksFx();
 
             async function fetchData() {
                 try {

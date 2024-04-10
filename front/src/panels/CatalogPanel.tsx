@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Panel, PanelHeader, PanelHeaderBack, Search, Group, Title, Text, Div } from '@vkontakte/vkui';
+import { Panel, PanelHeader, PanelHeaderBack, Search, Group, Title, Text, Div, CellButton } from '@vkontakte/vkui';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
@@ -18,7 +18,7 @@ export const CatalogPanel: React.FC = () => {
     };
 
     useEffect(() => {
-        getBooksFx();
+        getBooksFx(books);
     }, [])
 
     return (
@@ -34,7 +34,7 @@ export const CatalogPanel: React.FC = () => {
                 <Div className="books__items">
                     {
                         books.map(bookItem => 
-                            <Group className='book__item'>
+                            <CellButton className='book__item'>
                                 <Div className='book_div_item-image'>
                                     <img className='book_item-image' src={bookItem.imagePath} alt="" />
                                 </Div>
@@ -46,7 +46,7 @@ export const CatalogPanel: React.FC = () => {
                                     <Text className='book__descr'>{bookItem.dealType}</Text>
                                     <Text className='book__descr'>{bookItem.genre}</Text>
                                 </Div>
-                            </Group>
+                            </CellButton>
                         )
                     }
                 </Div>

@@ -5,6 +5,7 @@ import * as fs from 'fs/promises';
 
 @Injectable()
 export class BookService {
+  
   constructor(private readonly prismaService: PrismaService) {}
 
 
@@ -109,5 +110,14 @@ export class BookService {
               userId: data.userId,
           }
       })
+  }
+
+
+  async getUserBooks(userId: string) {
+    return await this.prismaService.book.findMany({
+      where: {
+        userId: userId,
+      }
+    })
   }
 }

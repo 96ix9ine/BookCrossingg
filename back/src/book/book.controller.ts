@@ -38,6 +38,13 @@ export class BookController {
     }
 
 
+    @Get("getUserBooks")
+    async GetUserBooks(userId: string) {
+      return this.bookService.getUserBooks(userId);
+
+    }
+
+
     @Post("createBook")
     async CreateBook(@Body() data: CreateBookDTO) {
         return this.bookService.createBook(data);

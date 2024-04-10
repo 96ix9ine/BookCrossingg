@@ -11,7 +11,8 @@ import svg3 from "../img/svg3.svg";
 import svg4 from "../img/svg4.svg";
 import { getUserIdFx } from "../api/addUserApi";
 import { useUnit } from "effector-react";
-import { $user } from "../store/user";
+import { $user, $userServerStore } from "../store/user";
+import { getUserBooks } from "../api/addBookApi";
 
 export interface ProfileProps extends NavIdProps {
     fetchedUser?: UserInfo;
@@ -22,9 +23,17 @@ const Profile = () => {
   const router = useRouteNavigator();
 
   const user = useUnit($user);
+  const userServer = useUnit($userServerStore);
+
+  const userId = user?.id.toString();
+
+  const books = getUserBooks(userServer.vkId);
+
 
   useEffect(() => {
     console.log(user?.city.title);
+    console.log(userServer.vkId)
+    console.log(books);
   }, [user])
 
   return (

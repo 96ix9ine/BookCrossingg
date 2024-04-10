@@ -176,7 +176,7 @@ const AddBookPanel = (): JSX.Element => {
                     className="addBook__panelheader"
                     id="addbook"
                     before={
-                        <Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => routeNavigator.back()}/>
+                        <Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => routeNavigator.push("/")}/>
                     }
                 >
                     <Group className="group">

@@ -53,8 +53,13 @@ export const getBookFx = createEffect(async (bookId: string) => {
 })
 
 
-export const getBooksFx = createEffect(async () => {
-    const { data } = await api.get("api/book/getBooks/");
+export const getUserBooksFx = async (userId: string) => {
+    const { data } = await api.get("api/book/getBooks/" + userId);
 
     return data;
-})
+}
+
+
+export const getBoksFx = () => {
+
+}
