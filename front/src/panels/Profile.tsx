@@ -60,7 +60,6 @@ const Profile = () => {
                   <p className="name_book">Это я</p>
                   <p className="name_book author">Сашка</p>
                 </div>
-                ?
                 {
                   books.map(bookItem => 
                     <CellButton className='book__item'>

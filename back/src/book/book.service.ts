@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateBookDTO } from './dto/CreateBookDTO';
 import * as fs from 'fs/promises';
+const { join } = require("path");
 
 @Injectable()
 export class BookService {
@@ -44,8 +45,10 @@ export class BookService {
         const imagePath = `images/${timestamp}_${image.originalname}`;
   
         savedImages.push(imagePath);
+        const rootPath = join(__dirname, "../../uploads");
+        console.log(rootPath);
   
-        await fs.writeFile(`${__dirname}/../uploads/${imagePath}`, image.buffer);
+        await fs.writeFile(`${__dirname}/../../uploads/${imagePath}`, image.buffer);
       }
 
 
@@ -71,12 +74,13 @@ export class BookService {
   }
 
 
-  async getBookImages(id: string) {
+  async getBookImages(bookId: string) {
       const userImages = await this.prismaService.image.findMany({
         where: {
-          id: id
+          bookId: bookId
         }
-      }) 
+      });
+
       return userImages;
   }
 

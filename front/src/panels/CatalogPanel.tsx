@@ -3,30 +3,51 @@ import { Panel, PanelHeader, PanelHeaderBack, Search, Group, Title, Text, Div, C
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
-import { $books } from '../store/addBook';
+import { $books, $resultBook } from '../store/addBook';
 import { useUnit } from 'effector-react';
 import { getUserBooksFx } from '../api/addBookApi';
 import { createUserFx } from '../api/addUserApi';
 import { $user, $userServerStore } from '../store/user';
+import { api } from '../api/axiosInstance';
 
 
 export const CatalogPanel: React.FC = () => {
     const router = useRouteNavigator();
     const [search, setSearch] = useState<string>('');
+    const [images, setImages] = useState<any>([]);
     const books = useUnit($books);
     const user = useUnit($userServerStore);
+    const resultBook = useUnit($resultBook);
+    
     
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
     };
 
+
+    const getUserImages = async (bookId: string) => {
+        try {
+            console.log(bookId);
+            const response = await api.get(`api/book/${bookId}/images`);
+            console.log(response.data);
+            setImages(response.data)
+        } 
+        
+        catch (error) {
+            console.error("asd");
+        }
+    } 
+
+
     useEffect(() => {
         async function getBooks() {
             await getUserBooksFx(user.id);
         }
+
       
         getBooks();
-        console.log("asdasd")
+        getUserImages(resultBook.id);
+        console.log(resultBook.id)
     }, [user])
 
     return (
@@ -44,7 +65,10 @@ export const CatalogPanel: React.FC = () => {
                         books.map(bookItem => 
                             <CellButton className='book__item'>
                                 <Div className='book_div_item-image'>
-                                    <img className='book_item-image' src={bookItem.imagePath} alt="" />
+                                    <img className='book_item-image' src={images.map((image: any, id: any) => {
+                                        
+                                        return <img src={'http://localhost:3000/' + image.path}/>
+                                    })} alt="" />
                                 </Div>
                                 <Div className='book__item-textContent'>
                                     <Title className='book__name'>{bookItem.title}</Title>

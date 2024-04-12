@@ -13,14 +13,13 @@ export const handleImageUpload = async (selectedImages: any, bookId: string) => 
             formData.append('images', image);
         });
 
-        formData.append("bookId", bookId);
+        formData.append("book-id", bookId);
 
-        console.log(formData);
-    
-        const response = await axios.post('http://localhost:3000/api/book/loadImage', formData, {
+        const response = await api.post('api/book/loadImage', formData, {
             onUploadProgress: (progressEvent: any) => {
                 const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-        },
+                console.log(progress);
+            },
         });
 
         console.log(response);
@@ -42,7 +41,6 @@ export const handleCreateBook = async (userId: string, formData: IDataState) => 
 
 export const createBookFx = createEffect(async (book: IBook) => {
     const { data } = await api.post("api/book/createBook", book);
-    console.log(book);
     return data;
 });
 

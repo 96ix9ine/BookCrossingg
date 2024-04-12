@@ -26,7 +26,7 @@ import {
 } from "@vkontakte/icons";
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
-import { $books } from "../store/addBook";
+import { $books, $resultBook, addResultBook } from "../store/addBook";
 import { createBookFx, handleCreateBook, handleImageUpload } from "../api/addBookApi";
 import { IBook, IDataState } from "../interfaces/interface";
 import { $userServerStore, $user } from "../store/user";
@@ -51,6 +51,8 @@ const AddBookPanel = (): JSX.Element => {
         start: false,
         bookId: '',
     });
+
+    const books = useUnit($books);
 
 
     const selectGenres = [
@@ -96,9 +98,8 @@ const AddBookPanel = (): JSX.Element => {
             user_Id = await getUserIdFx(userVk.id);
         }
 
-        console.log(`${user_Id.id} userId`);
-
         const result = await handleCreateBook(user_Id.id, formData);
+        addResultBook(result);
 
         if (result.id !== '') {
             setGo({
@@ -107,7 +108,7 @@ const AddBookPanel = (): JSX.Element => {
             })
         }
 
-        // console.log(result.id)
+        console.log(result.id)
 
         setDone(true);
         resetBookData();
@@ -125,27 +126,22 @@ const AddBookPanel = (): JSX.Element => {
     };
 
 
-    const getUserImages = async (bookId: string) => {
-        try {
-            const response = await axios.get('http://localhost:3000/user/' + bookId +'/images');
-            console.log(response);
-            setImages(response.data)
-        } 
-        
-        catch (error) {
-            console.error(error);
-        }
-    } 
+    
 
 
     useEffect(() => {
-        handleImageUpload(selectedImages, go.bookId);
-    }, [selectedImages]);
+        if (go) {
+            handleImageUpload(selectedImages, go.bookId);
+        }
+
+        console.log(go.bookId)
+    }, [go]);
 
 
     const resetBookData = () => {
         setFormData(initialState);
         setDone(false);
+        // setSelectedImages([]);
     }
 
 
@@ -224,13 +220,9 @@ const AddBookPanel = (): JSX.Element => {
                                     onChange={handleImageChange}
                                 >
                                     {
-                                        bookImageFile 
-                                        ? 
-                                            images.map((image: any, id: any) => {
-                                                return <img key={id} src={'http://localhost:3000/' + image.path}/>
-                                            })
-                                        : 
-                                            <Icon28AddOutline width={47} height={47} style={{color: "#A5A5A5"}}/>
+                                        images.map((image: any, id: any) => {
+                                            return <img key={id} src={'http://localhost:3000/' + image.path}/>
+                                        })
                                     }
                                 </File>
                                 
@@ -343,10 +335,7 @@ const AddBookPanel = (): JSX.Element => {
                                     Сохранить
                                 </Button>
                             </Group>
-                            
                         </FormItem>
-                        
-
                     </form>
                 }
                 
