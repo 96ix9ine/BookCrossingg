@@ -8,12 +8,12 @@ import { useUnit } from 'effector-react';
 import { api } from '../api/axiosInstance';
 import { getAllImages } from '../api/addBookApi';
 import { $imagesStore } from '../store/images';
+import { BookFactory } from '../components/BookFactory';
 
 
 export const CatalogPanel: React.FC = () => {
     const router = useRouteNavigator();
     const [search, setSearch] = useState<string>('');
-    const [books, images] = useUnit([$books, $imagesStore]);
     
     
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +35,6 @@ export const CatalogPanel: React.FC = () => {
 
     useEffect(() => {
         getAllImages();
-        console.log(images)
     }, [])
 
     return (
@@ -49,24 +48,7 @@ export const CatalogPanel: React.FC = () => {
                 <Title>Актуальное</Title>
 
                 <Div className="books__items">
-                    {
-                        books.map(bookItem => (
-                            <CellButton onClick={() => router.push("/aboutBook")} className='book__item' key={bookItem.id}>
-                                <Div className='book_div_item-image'>
-                                    <img className='book_item-image' src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} />
-                                </Div>
-                                <Div className='book__item-textContent'>
-                                    <Title className='book__name'>{bookItem.title}</Title>
-                                    <Text className='book__descr'>{bookItem.description}</Text>
-                                    <Text className='book__descr'>{bookItem.author}</Text>
-                                    <Text className='book__descr'>{bookItem.damageLevel}</Text>
-                                    <Text className='book__descr'>{bookItem.dealType}</Text>
-                                    <Text className='book__descr'>{bookItem.genre}</Text>
-                                </Div>
-                            </CellButton>
-                        ))
-                        // books.map(bookItem => <BookFactory book={bookItem} images={images} />)
-                    }
+                    <BookFactory />
                 </Div>
             </Div>
             <TabbarComponent/>

@@ -7,7 +7,6 @@ import axios from "axios";
 export const handleImageUpload = async (selectedImages: any, bookId: string) => {
     try {
         const formData = new FormData();
-        // console.log(bookId);
         
         selectedImages.forEach((image: any) => {
             formData.append('images', image);
@@ -18,11 +17,9 @@ export const handleImageUpload = async (selectedImages: any, bookId: string) => 
         const response = await api.post('api/book/loadImage', formData, {
             onUploadProgress: (progressEvent: any) => {
                 const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-                console.log(progress);
             },
         });
 
-        console.log(response);
         return response;
     } 
     

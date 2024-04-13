@@ -56,28 +56,27 @@ const Profile = () => {
                 <p className='no_books'>Здесь пока нет ни одной книги, которую вы бы хотели отдать. Подарите свою первую книгу другому</p>
                 :
                 <div className="user_books_list">
-                <div className="book book1" onClick={() => [router.push("/aboutbook")]}>
-                  <p className="name_book">Это я</p>
-                  <p className="name_book author">Сашка</p>
+                  <div className="book book1" onClick={() => [router.push("/aboutbook")]}>
+                    {
+                      books.map(bookItem => 
+                        <CellButton className='book__item'>
+                            <Div className='book_div_item-image'>
+                                <img className='book_item-image' src={bookItem.imagePath} alt="" />
+                            </Div>
+                            <Div className='book__item-textContent'>
+                                <Title className='book__name'>{bookItem.title}</Title>
+                                <Text className='book__descr'>{bookItem.description}</Text>
+                                <Text className='book__descr'>{bookItem.author}</Text>
+                                <Text className='book__descr'>{bookItem.damageLevel}</Text>
+                                <Text className='book__descr'>{bookItem.dealType}</Text>
+                                <Text className='book__descr'>{bookItem.genre}</Text>
+                            </Div>
+                        </CellButton>
+                      )
+                    }
+                  </div>
+                  
                 </div>
-                {
-                  books.map(bookItem => 
-                    <CellButton className='book__item'>
-                        <Div className='book_div_item-image'>
-                            <img className='book_item-image' src={bookItem.imagePath} alt="" />
-                        </Div>
-                        <Div className='book__item-textContent'>
-                            <Title className='book__name'>{bookItem.title}</Title>
-                            <Text className='book__descr'>{bookItem.description}</Text>
-                            <Text className='book__descr'>{bookItem.author}</Text>
-                            <Text className='book__descr'>{bookItem.damageLevel}</Text>
-                            <Text className='book__descr'>{bookItem.dealType}</Text>
-                            <Text className='book__descr'>{bookItem.genre}</Text>
-                        </Div>
-                    </CellButton>
-                )
-                }
-            </div>
               }
               
              

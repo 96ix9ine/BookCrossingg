@@ -1,25 +1,34 @@
-import { IBook } from "../interfaces/interface";
 import { Title, Text, Div, CellButton } from '@vkontakte/vkui';
+import { $books } from "../store/addBook";
+import { $imagesStore } from "../store/images";
+import { useUnit } from "effector-react";
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
 
-export const BookFactory = (book: IBook, images: any): JSX.Element => {
+export const BookFactory = (): JSX.Element => {
+    const [books, images] = useUnit([$books, $imagesStore]);
+    const router = useRouteNavigator();
+
     return (
-        <CellButton className='book__item'>
-            <Div className='book_div_item-image'>
-                {
-                    images.map((image: any, id: any) => {
-                        return <img className='book_item-image' key={id} src={'http://localhost:3000/' + image.path}/>
-                    })
-                }
-            </Div>
-            <Div className='book__item-textContent'>
-                <Title className='book__name'>{book.title}</Title>
-                <Text className='book__descr'>{book.description}</Text>
-                <Text className='book__descr'>{book.author}</Text>
-                <Text className='book__descr'>{book.damageLevel}</Text>
-                <Text className='book__descr'>{book.dealType}</Text>
-                <Text className='book__descr'>{book.genre}</Text>
-            </Div>
-        </CellButton>
+        <>
+            {
+                books.map(bookItem => (
+                    <CellButton onClick={() => router.push("/aboutBook")} className='book__item' key={bookItem.id}>
+                        <Div className='book_div_item-image'>
+                            <img className='book_item-image' src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} />
+                        </Div>
+                        <Div className='book__item-textContent'>
+                            <Title className='book__name'>{bookItem.title}</Title>
+                            <Text className='book__descr'>{bookItem.description}</Text>
+                            <Text className='book__descr'>{bookItem.author}</Text>
+                            <Text className='book__descr'>{bookItem.damageLevel}</Text>
+                            <Text className='book__descr'>{bookItem.dealType}</Text>
+                            <Text className='book__descr'>{bookItem.genre}</Text>
+                        </Div>
+                    </CellButton>
+                ))
+                // books.map(bookItem => <BookFactory book={bookItem} images={images} />)
+            }
+        </>
     );
 }

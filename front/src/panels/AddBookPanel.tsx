@@ -106,8 +106,6 @@ const AddBookPanel = (): JSX.Element => {
             })
         }
 
-        console.log(result.id)
-
         setDone(true);
         resetBookData();
     }, [formData, userServer])
