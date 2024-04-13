@@ -3,20 +3,17 @@ import { Panel, PanelHeader, PanelHeaderBack, Search, Group, Title, Text, Div, C
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
-import { $books, $resultBook } from '../store/addBook';
+import { $books } from '../store/addBook';
 import { useUnit } from 'effector-react';
-import { getUserBooksFx } from '../api/addBookApi';
-import { $userServerStore } from '../store/user';
 import { api } from '../api/axiosInstance';
+import { getAllImages } from '../api/addBookApi';
+import { $imagesStore } from '../store/images';
 
 
 export const CatalogPanel: React.FC = () => {
     const router = useRouteNavigator();
     const [search, setSearch] = useState<string>('');
-    const [images, setImages] = useState<any>([]);
-    const books = useUnit($books);
-    const user = useUnit($userServerStore);
-    const resultBook = useUnit($resultBook);
+    const [books, images] = useUnit([$books, $imagesStore]);
     
     
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,16 +34,8 @@ export const CatalogPanel: React.FC = () => {
 
 
     useEffect(() => {
-        books.map(book => getUserImages(book.id));
-        async function getBooks() {
-            await getUserBooksFx(user.id);
-        }
-
-
-        console.log(images);
-        
-        // getBooks(); - добавил добавление книги в App.ts useEffect
-        
+        getAllImages();
+        console.log(images)
     }, [])
 
     return (
@@ -61,12 +50,10 @@ export const CatalogPanel: React.FC = () => {
 
                 <Div className="books__items">
                     {
-                        books.map(bookItem => 
-                            <CellButton className='book__item'>
+                        books.map(bookItem => (
+                            <CellButton onClick={() => router.push("/aboutBook")} className='book__item' key={bookItem.id}>
                                 <Div className='book_div_item-image'>
-                                    {images.map((image: any, id: any) => {
-                                        return <img key={id} src={'http://localhost:3000/' + image.path}/>
-                                    })}
+                                    <img className='book_item-image' src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} />
                                 </Div>
                                 <Div className='book__item-textContent'>
                                     <Title className='book__name'>{bookItem.title}</Title>
@@ -77,7 +64,7 @@ export const CatalogPanel: React.FC = () => {
                                     <Text className='book__descr'>{bookItem.genre}</Text>
                                 </Div>
                             </CellButton>
-                        )
+                        ))
                         // books.map(bookItem => <BookFactory book={bookItem} images={images} />)
                     }
                 </Div>

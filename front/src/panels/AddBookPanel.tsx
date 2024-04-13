@@ -125,11 +125,9 @@ const AddBookPanel = (): JSX.Element => {
 
 
     useEffect(() => {
-        if (go) {
+        if (go.start) {
             handleImageUpload(selectedImages, go.bookId);
         }
-
-        console.log(go.bookId)
     }, [go]);
 
 
