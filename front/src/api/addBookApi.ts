@@ -57,3 +57,9 @@ export const getUserBooksFx = createEffect(async (userId: string) => {
 
     return data;
 });
+
+
+export const getAllImages = createEffect(async () => {
+    const { data } = await api.get("api/book/getAllImages");
+    return data;
+})

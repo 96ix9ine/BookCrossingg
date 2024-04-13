@@ -48,4 +48,11 @@ export class BookController {
     async CreateBook(@Body() data: CreateBookDTO) {
         return this.bookService.createBook(data);
     }
+
+
+    @Get("getAllImages")
+    async GetAllImages() {
+      return this.bookService.getAllImages();
+    }
 }
+

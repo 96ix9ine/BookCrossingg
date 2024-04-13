@@ -1,5 +1,5 @@
 import { createEvent, createStore } from "effector";
-import { IBook } from "../interfaces/interface";
+import { IBook, ResultBook } from "../interfaces/interface";
 import { createBookFx, getUserBooksFx } from "../api/addBookApi";
 
 export const $books = createStore<IBook[]>([]);
@@ -7,7 +7,11 @@ export const $books = createStore<IBook[]>([]);
 $books.on(createBookFx.doneData, (book, newBook) => [...book, newBook]);
 $books.on(getUserBooksFx.doneData, (_, books) => books);
 
-export const $resultBook = createStore<IBook[]>([]);
+
+
+// Окончательная книга с путем к изображению. Выводится в каталоге.
+export const $resultBook = createStore<ResultBook[]>([]);
 export const addResultBook = createEvent();
 
 $resultBook.on(addResultBook, (_, book) => book);
+

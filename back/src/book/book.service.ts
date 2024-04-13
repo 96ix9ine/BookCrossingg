@@ -7,6 +7,7 @@ const { join } = require("path");
 @Injectable()
 export class BookService {
   
+  
   constructor(private readonly prismaService: PrismaService) {}
 
 
@@ -127,6 +128,17 @@ export class BookService {
 
     catch (e) {
       console.log(e);
+    }
+  }
+
+
+  async getAllImages() {
+    try {
+      return await this.prismaService.image.findMany();
+    }
+
+    catch(e) {
+      console.log("Произошла ошибка", e)
     }
   }
 }
