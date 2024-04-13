@@ -42,7 +42,6 @@ export const App = () => {
         <View nav={activeView} activePanel={activePanel}>
           <CatalogPanel nav="home_panel"/>
           <Profile nav="profile_panel" />
-          <AboutBook nav="aboutbook_panel" />
           <AddBookPanel nav="addbook_panel"/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
         </View>

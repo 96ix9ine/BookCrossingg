@@ -40,19 +40,19 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .book {
     width: 120px;
     height: 150px;
-    background-image: url('https://sun9-17.userapi.com/impg/puufTEzBm2RM2GzwJAn9C2pAWWgy54521s86dg/CF3wwpZ6q48.jpg?size=512x1080&quality=96&sign=8a9226f7a7e55ac6e50cf80f51f06cd8&type=album');
+    background-image: url('https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_655ef7271457c967f7e88543_655ef922b7f52370d5b5524b/scale_1200');
     background-repeat: no-repeat;
     border-radius: 10px;
     background-size: contain;
     position: relative;
-    margin: 12% 0;
+    margin: 12% 5%;
 }
 
 .name_book{
@@ -61,5 +61,6 @@
 }
 
 .author {
-    top: 130%;
+    top: 115%;
+    font-weight: 700;
 }
