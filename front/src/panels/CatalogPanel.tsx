@@ -8,7 +8,6 @@ import { useUnit } from 'effector-react';
 import { getUserBooksFx } from '../api/addBookApi';
 import { $userServerStore } from '../store/user';
 import { api } from '../api/axiosInstance';
-import { BookFactory } from '../components/BookFactory';
 
 
 export const CatalogPanel: React.FC = () => {
@@ -28,25 +27,26 @@ export const CatalogPanel: React.FC = () => {
     const getUserImages = async (bookId: string) => {
         try {
             const response = await api.get(`api/book/${bookId}/images`);
-            console.log(response.data);
             setImages(response.data)
-        } 
+        }
         
         catch (error) {
             console.error("asd");
         }
-    } 
+    }
 
 
     useEffect(() => {
+        books.map(book => getUserImages(book.id));
         async function getBooks() {
             await getUserBooksFx(user.id);
         }
+
+
+        console.log(images);
         
         // getBooks(); - добавил добавление книги в App.ts useEffect
         
-        getUserImages(resultBook.id);
-        images.map(image => console.log(image.path))
     }, [])
 
     return (
@@ -61,26 +61,24 @@ export const CatalogPanel: React.FC = () => {
 
                 <Div className="books__items">
                     {
-                        // books.map(bookItem => 
-                        //     <CellButton className='book__item'>
-                        //         <Div className='book_div_item-image'>
-                        //             <img className='book_item-image' src={images.map((image: any, id: any) => {
-                        //                 return <img key={id} src={'http://localhost:3000/' + image.path}/>
-                        //             })} alt="" />
-                        //         </Div>
-                        //         <Div className='book__item-textContent'>
-                        //             <Title className='book__name'>{bookItem.title}</Title>
-                        //             <Text className='book__descr'>{bookItem.description}</Text>
-                        //             <Text className='book__descr'>{bookItem.author}</Text>
-                        //             <Text className='book__descr'>{bookItem.damageLevel}</Text>
-                        //             <Text className='book__descr'>{bookItem.dealType}</Text>
-                        //             <Text className='book__descr'>{bookItem.genre}</Text>
-                        //         </Div>
-                        //     </CellButton>
-                        // )
-
-
-                        books.map(bookItem => <BookFactory book={bookItem} images={images} />)
+                        books.map(bookItem => 
+                            <CellButton className='book__item'>
+                                <Div className='book_div_item-image'>
+                                    {images.map((image: any, id: any) => {
+                                        return <img key={id} src={'http://localhost:3000/' + image.path}/>
+                                    })}
+                                </Div>
+                                <Div className='book__item-textContent'>
+                                    <Title className='book__name'>{bookItem.title}</Title>
+                                    <Text className='book__descr'>{bookItem.description}</Text>
+                                    <Text className='book__descr'>{bookItem.author}</Text>
+                                    <Text className='book__descr'>{bookItem.damageLevel}</Text>
+                                    <Text className='book__descr'>{bookItem.dealType}</Text>
+                                    <Text className='book__descr'>{bookItem.genre}</Text>
+                                </Div>
+                            </CellButton>
+                        )
+                        // books.map(bookItem => <BookFactory book={bookItem} images={images} />)
                     }
                 </Div>
             </Div>

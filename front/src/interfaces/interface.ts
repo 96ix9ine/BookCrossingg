@@ -12,7 +12,7 @@ export interface IBook {
 export interface IDataState extends IBook {}
 
 
-export interface ResultBook extends IBook {
+export interface IResultBook extends IBook {
     imagePath: string
 }
 

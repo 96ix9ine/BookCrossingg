@@ -220,7 +220,6 @@ const AddBookPanel = (): JSX.Element => {
                                         })
                                     }
                                 </File>
-                                
                             </FormItem>
                             <Text className="maxSize__text">максимальный размер изображения:<br /> 1000x1000px</Text>
                         </div>
