@@ -13,6 +13,7 @@ import { createUserFx, getUserIdFx } from './api/addUserApi';
 import { $user, setUser } from './store/user';
 import AboutBook from './panels/AboutBook';
 import { useUnit } from 'effector-react';
+import { getUserBooksFx } from './api/addBookApi';
 
 
 export const App = () => {
@@ -25,6 +26,8 @@ export const App = () => {
       setUser(user);
       // Добавление ID пользователя в базу данных.
       createUserFx(user.id);
+      
+      getUserBooksFx(user.id.toString());
     }
     
     fetchData();

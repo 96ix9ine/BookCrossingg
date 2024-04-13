@@ -30,7 +30,6 @@ export class BookService {
           return await this.prismaService.book.findMany();
       }
 
-
       catch (e) {
           console.log(e);
       }
@@ -129,6 +128,5 @@ export class BookService {
     catch (e) {
       console.log(e);
     }
-    
   }
 }

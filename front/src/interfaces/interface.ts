@@ -12,6 +12,11 @@ export interface IBook {
 export interface IDataState extends IBook {}
 
 
+export interface ResultBook extends IBook {
+    imagePath: string
+}
+
+
 export interface IServerUser {
     vkId: string,
 }

@@ -6,8 +6,7 @@ import { TabbarComponent } from '../components/Tabbar';
 import { $books, $resultBook } from '../store/addBook';
 import { useUnit } from 'effector-react';
 import { getUserBooksFx } from '../api/addBookApi';
-import { createUserFx } from '../api/addUserApi';
-import { $user, $userServerStore } from '../store/user';
+import { $userServerStore } from '../store/user';
 import { api } from '../api/axiosInstance';
 
 
@@ -27,7 +26,6 @@ export const CatalogPanel: React.FC = () => {
 
     const getUserImages = async (bookId: string) => {
         try {
-            console.log(bookId);
             const response = await api.get(`api/book/${bookId}/images`);
             console.log(response.data);
             setImages(response.data)
@@ -43,12 +41,12 @@ export const CatalogPanel: React.FC = () => {
         async function getBooks() {
             await getUserBooksFx(user.id);
         }
-
-      
-        getBooks();
+        
+        // getBooks(); - добавил добавление книги в App.ts useEffect
+        
         getUserImages(resultBook.id);
-        console.log(resultBook.id)
-    }, [user])
+        images.map(image => console.log(image.path))
+    }, [])
 
     return (
         <Panel>
@@ -66,8 +64,7 @@ export const CatalogPanel: React.FC = () => {
                             <CellButton className='book__item'>
                                 <Div className='book_div_item-image'>
                                     <img className='book_item-image' src={images.map((image: any, id: any) => {
-                                        
-                                        return <img src={'http://localhost:3000/' + image.path}/>
+                                        return <img key={id} src={'http://localhost:3000/' + image.path}/>
                                     })} alt="" />
                                 </Div>
                                 <Div className='book__item-textContent'>
@@ -82,7 +79,6 @@ export const CatalogPanel: React.FC = () => {
                         )
                     }
                 </Div>
-                
             </Div>
             <TabbarComponent/>
         </Panel>

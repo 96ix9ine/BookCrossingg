@@ -20,17 +20,15 @@ import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import "../styles/AddBookPanel/AddBook.scss";
 import { 
     Icon12ChevronOutline, 
-    Icon28AddOutline,
     Icon28ArrowLeftOutline,
     Icon28CheckCircleOutline
 } from "@vkontakte/icons";
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
-import { $books, $resultBook, addResultBook } from "../store/addBook";
-import { createBookFx, handleCreateBook, handleImageUpload } from "../api/addBookApi";
-import { IBook, IDataState } from "../interfaces/interface";
+import { $books, addResultBook } from "../store/addBook";
+import { handleCreateBook, handleImageUpload } from "../api/addBookApi";
+import { IDataState } from "../interfaces/interface";
 import { $userServerStore, $user } from "../store/user";
-import axios from "axios";
 import { initialState } from "../constatns/FormDataConstant";
 import { getUserIdFx } from "../api/addUserApi";
 
@@ -124,9 +122,6 @@ const AddBookPanel = (): JSX.Element => {
     const handleChangeValue = (e: any, field: keyof IDataState) => {
         setFormData(prev => ({ ...prev, [field]: e.target.value }));
     };
-
-
-    
 
 
     useEffect(() => {
