@@ -14,6 +14,7 @@ import { useUnit } from "effector-react";
 import { $user, $userServerStore } from "../store/user";
 import { getUserBooksFx } from "../api/addBookApi";
 import { $books } from "../store/addBook";
+import { BookFactory } from "../components/BookFactory";
 
 export interface ProfileProps extends NavIdProps {
     fetchedUser?: UserInfo;
@@ -96,7 +97,7 @@ const Profile = () => {
     <Panel>
         <Group>
         <div className='user_background'></div>
-          <div className='profile'>
+          <div className=''>
             <SimpleCell className='profile_info' before={<Avatar size={82} src={user?.photo_200}/>}>
               <Title>{`${user?.first_name}`}</Title>
               <Text>{`${user?.city.title}`}</Text>
@@ -112,24 +113,8 @@ const Profile = () => {
                 <div className="user_books_list">
                   
                   <div className="book book1" onClick={()=>setActiveModal('select')}>
-                  <SplitLayout modal={modal}>
-                    {
-                      books.map(bookItem => 
-                        <CellButton className='book__item'>
-                            <Div className='book_div_item-image'>
-                                <img className='book_item-image' src={bookItem.imagePath} alt="" />
-                            </Div>
-                            <Div className='book__item-textContent'>
-                                <Title className='book__name'>{bookItem.title}</Title>
-                                <Text className='book__descr'>{bookItem.description}</Text>
-                                <Text className='book__descr'>{bookItem.author}</Text>
-                                <Text className='book__descr'>{bookItem.damageLevel}</Text>
-                                <Text className='book__descr'>{bookItem.dealType}</Text>
-                                <Text className='book__descr'>{bookItem.genre}</Text>
-                            </Div>
-                        </CellButton>
-                      )
-                    }
+                    <SplitLayout modal={modal}>
+                      <BookFactory />
                     </SplitLayout>
                   </div>
                 </div>

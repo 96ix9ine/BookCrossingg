@@ -3,6 +3,7 @@ import { $books } from "../store/addBook";
 import { $imagesStore } from "../store/images";
 import { useUnit } from "effector-react";
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
+import '../styles/Components.scss';
 
 
 export const BookFactory = (): JSX.Element => {
