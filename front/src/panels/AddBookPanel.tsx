@@ -31,6 +31,7 @@ import { IDataState } from "../interfaces/interface";
 import { $userServerStore, $user } from "../store/user";
 import { initialState } from "../constatns/FormDataConstant";
 import { getUserIdFx } from "../api/addUserApi";
+import { handleCreateDeal } from "../api/dealApi";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -98,6 +99,8 @@ const AddBookPanel = (): JSX.Element => {
 
         const result = await handleCreateBook(user_Id.id, formData);
         addResultBook(result);
+        await handleCreateDeal(userServer.id, result.id);
+        
 
         if (result.id !== '') {
             setGo({
