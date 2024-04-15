@@ -102,20 +102,16 @@ const Profile = () => {
               <Title>{`${user?.first_name}`}</Title>
               <Text>{`${user?.city.title}`}</Text>
             </SimpleCell>
-            <div className='user_books'>
-            
+            <div className=''>
               <h1 className='header'>Мои книги</h1>
               {
                 books.length == 0 
                 ? 
                 <p className='no_books'>Здесь пока нет ни одной книги, которую вы бы хотели отдать. Подарите свою первую книгу другому</p>
                 :
-                <div className="user_books_list">
-                  
-                  <div className="book book1" onClick={()=>setActiveModal('select')}>
-                    <SplitLayout modal={modal}>
-                      <BookFactory />
-                    </SplitLayout>
+                <div className="">
+                  <div className="user_books_list" onClick={() => [router.push("/aboutbook")]}>
+                    <BookFactory />
                   </div>
                 </div>
               }
