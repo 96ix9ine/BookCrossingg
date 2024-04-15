@@ -10,4 +10,9 @@ export class CreateDealDTO {
     @IsNotEmpty()
     @IsString()
     bookId: string
+
+
+    @IsNotEmpty()
+    @IsString()
+    address: string
 }

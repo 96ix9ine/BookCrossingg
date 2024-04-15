@@ -11,7 +11,8 @@ export class DealService {
         return await this.prismaService.deal.create({
             data: {
                 userId: data.userId,
-                bookId: data.bookId
+                bookId: data.bookId,
+                address: data.address
             }
         })
     }
