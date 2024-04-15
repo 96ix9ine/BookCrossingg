@@ -1,5 +1,5 @@
 import { Title, Text, Div, CellButton } from '@vkontakte/vkui';
-import { $books } from "../store/addBook";
+import { $books, setActiveBook } from "../store/addBook";
 import { $imagesStore } from "../store/images";
 import { useUnit } from "effector-react";
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -14,17 +14,11 @@ export const BookFactory = (): JSX.Element => {
         <>
             {
                 books.map(bookItem => (
-                    <CellButton onClick={() => router.push("/aboutBook")} className='book__item' key={bookItem.id}>
-                        <Div className='book_div_item-image'>
-                            <img className='book_item-image' src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} />
-                        </Div>
+                    <CellButton onClick={() => {router.push("/aboutBook"); setActiveBook(bookItem)}} className='book__item' key={bookItem.id}>
+                        <img className='book_item-image' src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} />
                         <Div className='book__item-textContent'>
                             <Title className='book__name'>{bookItem.title}</Title>
-                            <Text className='book__descr'>{bookItem.description}</Text>
                             <Text className='book__descr'>{bookItem.author}</Text>
-                            <Text className='book__descr'>{bookItem.damageLevel}</Text>
-                            <Text className='book__descr'>{bookItem.dealType}</Text>
-                            <Text className='book__descr'>{bookItem.genre}</Text>
                         </Div>
                     </CellButton>
                 ))
