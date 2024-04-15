@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
+import { Button, Div, FormItem, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
 import bridge, { UserInfo } from '@vkontakte/vk-bridge';
 import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
@@ -19,6 +19,7 @@ import { $user } from '../store/user';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
 import anime from 'animejs/lib/anime.es.js';
+import { setDealAddress } from '../store/dealAddress';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -82,8 +83,8 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                 }
             }
             fetchData();
-        }
 
+        }
     }, []);
 
     
@@ -121,10 +122,20 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                     getRootRef={modalRef}
                     onClose={closeModal}
                     header={
-                        <div className='modal__window_header'>
+                        <form className='modal__window_header'>
                             <ModalPageHeader>Информация о метке</ModalPageHeader>
-                            <Button className='modal__window_button' onClick={() => router.push("/addbook")}>Подтвердить</Button>
-                        </div>
+                            <Button 
+                                type='submit' 
+                                className='modal__window_button' 
+                                onClick={() => {
+                                        router.push("/addbook"); 
+                                        setDealAddress(PlacemarkData[activePlacemarkId].address)
+                                    }
+                                }
+                            >
+                                Подтвердить
+                            </Button>
+                        </form>
                     }
                     settlingHeight={60}
                     dynamicContentHeight={true}

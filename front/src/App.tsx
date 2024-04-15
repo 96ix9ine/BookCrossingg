@@ -21,6 +21,7 @@ export const App = () => {
 	const { view: activeView } = useActiveVkuiLocation();
 	const activePanel = useGetPanelForView("default_view");
   const deal = useUnit($dealStore);
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -35,6 +36,7 @@ export const App = () => {
     
     fetchData();
     console.log(deal)
+
   }, []);
 
   

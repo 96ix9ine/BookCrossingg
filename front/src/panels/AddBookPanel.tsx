@@ -32,6 +32,7 @@ import { $userServerStore, $user } from "../store/user";
 import { initialState } from "../constatns/FormDataConstant";
 import { getUserIdFx } from "../api/addUserApi";
 import { handleCreateDeal } from "../api/dealApi";
+import { $dealAddress, setDealAddress } from "../store/dealAddress";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -44,6 +45,7 @@ const AddBookPanel = (): JSX.Element => {
 
     const userServer = useUnit($userServerStore);
     const userVk = useUnit($user);
+    const dealAddress = useUnit($dealAddress);
 
     const [formData, setFormData] = useState<IDataState>(initialState);
     const [go, setGo] = useState({
@@ -136,6 +138,7 @@ const AddBookPanel = (): JSX.Element => {
         setFormData(initialState);
         setDone(false);
         // setSelectedImages([]);
+        setDealAddress("");
     }
 
 
@@ -159,7 +162,7 @@ const AddBookPanel = (): JSX.Element => {
                     className="addBook__panelheader"
                     id="addbook"
                     before={
-                        <Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => routeNavigator.push("/")}/>
+                        <Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => {routeNavigator.push("/"); resetBookData();}}/>
                     }
                 >
                     <Group className="group">
@@ -189,8 +192,8 @@ const AddBookPanel = (): JSX.Element => {
                     <Input
                         className="input"
                         type="text"
+                        value={dealAddress}
                         disabled
-                        placeholder="Введите адрес"
                     />
                 </div>
                 
