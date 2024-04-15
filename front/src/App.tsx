@@ -14,11 +14,13 @@ import { $user, setUser } from './store/user';
 import AboutBook from './panels/AboutBook';
 import { useUnit } from 'effector-react';
 import { getAllImages, getUserBooksFx } from './api/addBookApi';
+import { $dealStore } from './store/deal';
 
 
 export const App = () => {
 	const { view: activeView } = useActiveVkuiLocation();
 	const activePanel = useGetPanelForView("default_view");
+  const deal = useUnit($dealStore);
 
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +34,7 @@ export const App = () => {
     }
     
     fetchData();
+    console.log(deal)
   }, []);
 
   

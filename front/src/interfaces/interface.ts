@@ -20,3 +20,9 @@ export interface IResultBook extends IBook {
 export interface IServerUser {
     vkId: string,
 }
+
+
+export interface IDeal {
+    bookId: string,
+    userId: string,
+}

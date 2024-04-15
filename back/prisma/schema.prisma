@@ -54,4 +54,6 @@ model Deal {
 
   book   Book   @relation(fields: [bookId], references: [id])
   bookId String
+
+  address String
 }

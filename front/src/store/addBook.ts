@@ -9,7 +9,6 @@ $books.on(getUserBooksFx.doneData, (_, books) => books);
 
 
 
-
 export const $activeBook = createStore<IBook[]>([]); // хранилище с активной книгой -> для передачи книги в панель AboutBook
 export const setActiveBook = createEvent<IBook>();          // событие для сохранения книги в хранилище $activeBook
 $activeBook.on(setActiveBook, (_, book) => book);
