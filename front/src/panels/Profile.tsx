@@ -109,9 +109,14 @@ const Profile = () => {
                 ? 
                 <p className='no_books'>Здесь пока нет ни одной книги, которую вы бы хотели отдать. Подарите свою первую книгу другому</p>
                 :
-                <div className="">
-                  <div className="user_books_list" onClick={() => [router.push("/aboutbook")]}>
-                    <BookFactory />
+                <div className="user_books_list">
+                  
+                  <div className="book book1" onClick={()=>setActiveModal('select')}>
+                  <SplitLayout modal={modal}>
+                    {
+                      <BookFactory />
+                    }
+                    </SplitLayout>
                   </div>
                 </div>
               }
