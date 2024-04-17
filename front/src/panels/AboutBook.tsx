@@ -17,7 +17,7 @@ const AboutBook: React.FC<ProfileProps> = () => {
 
     useEffect(() => {
         console.log(activeBook)
-    }, [])
+    }, []);
 
     return (
         <Panel>
@@ -26,7 +26,11 @@ const AboutBook: React.FC<ProfileProps> = () => {
                         <Text className="book_header">Книга</Text>
                 </PanelHeader>
                     <div className="book_title">
-                        <img width={190} src={'http://localhost:3000/' + images.find(image => image.bookId === activeBook.id)?.path} alt="фото книги"></img>
+                        <img 
+                            width={190} 
+                            src={'http://localhost:3000/' + images.find(image => image.bookId === activeBook.id)?.path} 
+                            alt="фото книги">
+                        </img>
                         <Text className="book_name">{activeBook.title}</Text>
                     </div>
                 <SimpleCell className="user" before={<Avatar size={72} src={photo_max_orig} />}>

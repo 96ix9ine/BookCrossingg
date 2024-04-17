@@ -36,7 +36,6 @@ export const App = () => {
     
     fetchData();
     console.log(deal)
-
   }, []);
 
   
@@ -49,6 +48,7 @@ export const App = () => {
           <AddBookPanel nav="addbook_panel"/>
           <CustomMapTabbar nav="mapTabbar_panel" coordinates={coordinates}/>
           <CustomMap nav="map_panel" coordinates={coordinates}/>
+          <AboutBook nav='aboutbook_panel'/>
         </View>
       </SplitCol>
     </SplitLayout>

@@ -23,7 +23,7 @@ import {
     Icon28ArrowLeftOutline,
     Icon28CheckCircleOutline
 } from "@vkontakte/icons";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUnit } from "effector-react";
 import { $books, addResultBook } from "../store/addBook";
 import { handleCreateBook, handleImageUpload } from "../api/addBookApi";
@@ -101,8 +101,7 @@ const AddBookPanel = (): JSX.Element => {
 
         const result = await handleCreateBook(user_Id.id, formData);
         addResultBook(result);
-        await handleCreateDeal(userServer.id, result.id);
-        
+        const deal = handleSetAddress(user_Id.id, result.id, dealAddress);   
 
         if (result.id !== '') {
             setGo({
@@ -111,9 +110,17 @@ const AddBookPanel = (): JSX.Element => {
             })
         }
 
+        console.log(deal);
+
         setDone(true);
         resetBookData();
+        console.log("Сохранено")
     }, [formData, userServer])
+
+
+    const handleSetAddress = async (userId: any, resultId: any, address:  any) => {
+        return await handleCreateDeal(userId, resultId, address);
+    }
 
 
     const handleImageChange = (event: any) => {
@@ -131,8 +138,10 @@ const AddBookPanel = (): JSX.Element => {
         if (go.start) {
             handleImageUpload(selectedImages, go.bookId);
         }
-    }, [go]);
 
+        console.log(dealAddress);
+        console.log(done);
+    }, []);
 
     const resetBookData = () => {
         setFormData(initialState);
@@ -192,7 +201,7 @@ const AddBookPanel = (): JSX.Element => {
                     <Input
                         className="input"
                         type="text"
-                        value={dealAddress}
+                        value={dealAddress ? dealAddress : "Выберите адрес"}
                         disabled
                     />
                 </div>

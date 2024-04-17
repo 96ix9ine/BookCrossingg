@@ -25,4 +25,5 @@ export interface IServerUser {
 export interface IDeal {
     bookId: string,
     userId: string,
+    address: string
 }

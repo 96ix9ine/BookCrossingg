@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Div, FormItem, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
@@ -19,7 +19,7 @@ import { $user } from '../store/user';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
 import anime from 'animejs/lib/anime.es.js';
-import { setDealAddress } from '../store/dealAddress';
+import { $dealAddress, setDealAddress } from '../store/dealAddress';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -35,6 +35,8 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
 
     const books = useUnit($books);
     const user = useUnit($user);
+    const dealAddress = useUnit($dealAddress);
+
     const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
     const { first_name, last_name } = { ...fetchedUser };
 
@@ -83,11 +85,9 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                 }
             }
             fetchData();
-
         }
     }, []);
 
-    
 
     return (
         <Panel>
@@ -128,8 +128,8 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                                 type='submit' 
                                 className='modal__window_button' 
                                 onClick={() => {
-                                        router.push("/addbook"); 
-                                        setDealAddress(PlacemarkData[activePlacemarkId].address)
+                                        setDealAddress(PlacemarkData[activePlacemarkId].address);
+                                        router.push("/addBook");
                                     }
                                 }
                             >
