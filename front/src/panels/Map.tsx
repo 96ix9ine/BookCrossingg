@@ -125,7 +125,6 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                         <form className='modal__window_header'>
                             <ModalPageHeader>Информация о метке</ModalPageHeader>
                             <Button 
-                                type='submit' 
                                 className='modal__window_button' 
                                 onClick={() => {
                                         setDealAddress(PlacemarkData[activePlacemarkId].address);
