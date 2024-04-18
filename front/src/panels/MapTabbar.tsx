@@ -140,7 +140,6 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                         header={
                             <div className='modal__window_header'>
                                 <ModalPageHeader>Информация о метке</ModalPageHeader>
-                                {PlacemarkData[activePlacemarkId].address}
                             </div>
                         }
                         settlingHeight={60}
