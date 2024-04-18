@@ -17,6 +17,7 @@ const AboutBook: React.FC<ProfileProps> = () => {
 
     useEffect(() => {
         console.log(activeBook)
+        console.log(city)
     }, []);
 
     return (
@@ -35,7 +36,7 @@ const AboutBook: React.FC<ProfileProps> = () => {
                     </div>
                 <SimpleCell className="user" before={<Avatar size={72} src={photo_max_orig} />}>
                     <p>{`${first_name + " " + last_name}`}</p>
-                    <p>{`${user?.city}`}</p>
+                    <p>{`${user?.city.title}`}</p>
                 </SimpleCell>
                 <div className="book_info">
                     <div className="book_Author">
@@ -49,7 +50,7 @@ const AboutBook: React.FC<ProfileProps> = () => {
                     <div className="book_Description">
                         <Text className="book_description_title">Описание книги</Text>
                         <Text>
-                            {activeBook.description}
+                            {activeBook.descripton}
                         </Text>
                     </div>
                     <div className="bool_damage">

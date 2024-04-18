@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title, Text } from '@vkontakte/vkui';
+import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title, Text, CellButton } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
 import bridge, { UserInfo } from '@vkontakte/vk-bridge';
 import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
@@ -11,7 +11,6 @@ import '../styles/MapFilter.scss';
 import '../styles/Tabbar.scss';
 import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
-
 import { $books } from '../store/addBook';
 import { getUserBooksFx } from '../api/addBookApi';
 import { useUnit } from 'effector-react';
@@ -23,7 +22,6 @@ import { $dealAddress } from '../store/dealAddress';
 import { $dealStore } from '../store/deal';
 import { getDeals } from '../api/dealApi';
 import { IDeal } from '../interfaces/interface';
-import { MapBooksFactory } from '../components/BookFactory';
 import { $imagesStore } from '../store/images';
 
 interface CustomMapProps extends NavIdProps {
@@ -172,13 +170,19 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                                     dealStore.map(deal => deal.address === PlacemarkData[activePlacemarkId].address &&
                                         // <MapBooksFactory bookdId={deal.bookId}/>
                                         books.map(bookItem => bookItem.id === deal.bookId &&
-                                            <Group className='modal__window_book_container' separator='hide'>
-                                                <img 
-                                                    className='book_item-image' 
-                                                    src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} 
-                                                />
-                                                <Div className='modal__window_div_image'>
-                                                    <img className='modal__window_image' src={bookItem.imagePath} alt="" />
+                                            <Group 
+                                                onClick={() => router.push("/aboutBook")} 
+                                                className='modal__window_book_container' 
+                                                separator='hide'
+                                            >
+                                                <Div 
+                                                    className='modal__window_div_image'
+                                                >
+                                                    <img 
+                                                        className='modal__window_image' 
+                                                        src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} 
+                                                        alt={bookItem.title} 
+                                                    />
                                                 </Div>
                                                 <Div className='modal__window_book-textContent'>
                                                     <Title className='modal__window_book__name'>{bookItem.title}</Title>
