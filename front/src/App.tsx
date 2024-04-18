@@ -8,7 +8,7 @@ import CustomMapTabbar from './panels/MapTabbar';
 import CustomMap from './panels/Map';
 import AddBookPanel from './panels/AddBookPanel';
 import { CatalogPanel } from './panels/CatalogPanel';
-import Profile from './panels/Profile';
+import { Profile } from './panels/Profile';
 import { createUserFx, getUserIdFx } from './api/addUserApi';
 import { $user, setUser } from './store/user';
 import AboutBook from './panels/AboutBook';

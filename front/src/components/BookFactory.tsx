@@ -18,16 +18,20 @@ export const BookFactory = (): JSX.Element => {
         <>
             {
                 books.map(bookItem => (
-                    <CellButton onClick={() => {router.push("/aboutBook"); setActiveBook(bookItem)}} className='book__item' key={bookItem.id}>
-                        <img 
-                            className='book_item-image' 
-                            src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} 
-                        />
-                        <Div className='book__item-textContent'>
-                            <Title className='book__name'>{bookItem.title}</Title>
-                            <Text className='book__descr'>{bookItem.author}</Text>
-                        </Div>
-                    </CellButton>
+                    <Div className='book_container'>
+                        <CellButton onClick={() => {router.push("/aboutBook"); setActiveBook(bookItem)}} className='book__item' key={bookItem.id}>
+                            <Div className='book_container-wrapper--profile'>
+                                <img 
+                                    className='book_item-image' 
+                                    src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} 
+                                />
+                                <Div className='book__item-textContent'>
+                                    <Title className='name_book'>{bookItem.title}</Title>
+                                    <Text className='name_book author'>{bookItem.author}</Text>
+                                </Div>
+                            </Div>
+                        </CellButton>
+                    </Div>
                 ))
                 // books.map(bookItem => <BookFactory book={bookItem} images={images} />)
             }

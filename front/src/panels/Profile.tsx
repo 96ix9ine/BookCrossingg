@@ -5,10 +5,6 @@ import { TabbarComponent } from "../components/Tabbar";
 import { useRouteNavigator } from "@vkontakte/vk-mini-apps-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import anime from 'animejs/lib/anime.es.js';
-import svg1 from "../img/svg1.svg";
-import svg2 from "../img/svg2.svg";
-import svg3 from "../img/svg3.svg";
-import svg4 from "../img/svg4.svg";
 import { getUserIdFx } from "../api/addUserApi";
 import { useUnit } from "effector-react";
 import { $user, $userServerStore } from "../store/user";
@@ -20,7 +16,7 @@ export interface ProfileProps extends NavIdProps {
     fetchedUser?: UserInfo;
 }
 
-const Profile = () => {
+export const Profile: React.FC = () => {
   // const { photo_max_orig, city, first_name, id } = { ...fetchedUser };
   const router = useRouteNavigator();
 
@@ -109,15 +105,10 @@ const Profile = () => {
                 ? 
                 <p className='no_books'>Здесь пока нет ни одной книги, которую вы бы хотели отдать. Подарите свою первую книгу другому</p>
                 :
-                <div className="user_books_list">
-                  
-                  <div className="book book1" onClick={()=>setActiveModal('select')}>
-                  <SplitLayout modal={modal}>
-                    {
-                      <BookFactory />
-                    }
-                    </SplitLayout>
-                  </div>
+                <div className="user_books_list"> 
+                  <Div className="book_container-wrapper">
+                    <BookFactory />
+                  </Div>
                 </div>
               }
             </div>
@@ -127,5 +118,3 @@ const Profile = () => {
     </Panel>
   );
 }; 
-
-  export default Profile;
