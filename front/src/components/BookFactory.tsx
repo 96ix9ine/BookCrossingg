@@ -12,7 +12,6 @@ export const BookFactory = (): JSX.Element => {
     const router = useRouteNavigator();
 
     useEffect(() => {
-        console.log(activeBook)
     }, [activeBook]);
 
     return (

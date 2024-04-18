@@ -141,7 +141,7 @@ const AddBookPanel = (): JSX.Element => {
 
         console.log(dealAddress);
         console.log(done);
-    }, []);
+    }, [go]);
 
     const resetBookData = () => {
         setFormData(initialState);
@@ -334,7 +334,7 @@ const AddBookPanel = (): JSX.Element => {
                             <Group separator="hide">
                                 <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
                                 <Button 
-                                    type="submit"
+                                    onClick={() => handleSubmit()}
                                     className="addBook__button"
                                 >
                                     Сохранить

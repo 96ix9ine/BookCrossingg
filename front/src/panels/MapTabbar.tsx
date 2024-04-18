@@ -19,6 +19,9 @@ import { $user } from '../store/user';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
 import anime from 'animejs/lib/anime.es.js';
+import { $dealAddress } from '../store/dealAddress';
+import { $dealStore } from '../store/deal';
+import { getDeals } from '../api/dealApi';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -32,8 +35,7 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
     const [modalActive, setModalActive] = useState<boolean>(true);
     const router = useRouteNavigator();
 
-    const books = useUnit($books);
-    const user = useUnit($user);
+    const [books, user, dealAddress, dealStore] = useUnit([$books, $user, $dealAddress, $dealStore]);
     const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
     const { first_name, last_name } = { ...fetchedUser };
 
@@ -77,6 +79,7 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                 try {
                     const user = await bridge.send('VKWebAppGetUserInfo');
                     setFetchedUser(user);
+
                 } catch (error) {
                     console.error('Error fetching user data:', error);
                 }
@@ -84,6 +87,8 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
             fetchData();
         }
 
+        getDeals();
+        console.log(dealStore);
     }, []);
 
     

@@ -4,6 +4,7 @@ import { CreateDealDTO } from './dto/CreateDealDTO';
 
 @Injectable()
 export class DealService {
+    
     constructor(private readonly prismaService: PrismaService) {}
 
 
@@ -15,5 +16,10 @@ export class DealService {
                 address: data.address
             }
         })
+    }
+
+
+    async getDeals() {
+        return await this.prismaService.deal.findMany();
     }
 }

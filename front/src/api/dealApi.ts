@@ -24,3 +24,9 @@ export const createDealFx = createEffect(async (dealData: any) => {
         throw new Error("Произошла ошибка в createDealFx")
     }
 });
+
+
+export const getDeals = createEffect(async () => {
+    const { data } = await api.get("api/deal/getDeals");
+    return data;
+});

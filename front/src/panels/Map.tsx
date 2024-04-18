@@ -20,6 +20,7 @@ import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 
 import anime from 'animejs/lib/anime.es.js';
 import { $dealAddress, setDealAddress } from '../store/dealAddress';
+import { $dealStore } from '../store/deal';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -33,9 +34,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
     const [modalActive, setModalActive] = useState<boolean>(true);
     const router = useRouteNavigator();
 
-    const books = useUnit($books);
-    const user = useUnit($user);
-    const dealAddress = useUnit($dealAddress);
+    const [books, user, dealAddress, dealStore] = useUnit([$books, $user, $dealAddress, $dealStore]);
 
     const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
     const { first_name, last_name } = { ...fetchedUser };
@@ -164,17 +163,17 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                         <Div className='modal__window_listbooks-container'>
                             {
                                 books.map(bookItem => 
-                                <Group className='modal__window_book_container' separator='hide'>
-                                        <Div className='modal__window_div_image'>
-                                            <img className='modal__window_image' src={bookItem.imagePath} alt="" />
-                                        </Div>
-                                        <Div className='modal__window_book-textContent'>
-                                            <Title className='modal__window_book__name'>{bookItem.title}</Title>
-                                            <Title className='modal__window_book__descr'>{bookItem.author}</Title>
-                                            <Title className='modal__window_book__descr'>{bookItem.genre}</Title>
-                                            <Title className='modal__window_book__descr'>{`${first_name + " " + last_name}`}</Title>
-                                        </Div>
-                                </Group>
+                                    <Group className='modal__window_book_container' separator='hide'>
+                                            <Div className='modal__window_div_image'>
+                                                <img className='modal__window_image' src={bookItem.imagePath} alt="" />
+                                            </Div>
+                                            <Div className='modal__window_book-textContent'>
+                                                <Title className='modal__window_book__name'>{bookItem.title}</Title>
+                                                <Title className='modal__window_book__descr'>{bookItem.author}</Title>
+                                                <Title className='modal__window_book__descr'>{bookItem.genre}</Title>
+                                                <Title className='modal__window_book__descr'>{`${first_name + " " + last_name}`}</Title>
+                                            </Div>
+                                    </Group>
                                 )
                             }
                         </Div>
