@@ -288,17 +288,17 @@ const AddBookPanel = (): JSX.Element => {
                             <RadioGroup>
                                 <Radio
                                     name="exchange"
-                                    value="1"
+                                    value={formData.dealType}
                                     defaultChecked
-                                    onChange={(e) => handleChangeValue(e, "dealType")}
+                                    onChange={() => handleChangeValue("Бесплатно", "dealType")}
                                 >
                                     Бесплатно
                                 </Radio>
                                 <Radio 
                                     name="exchange" 
-                                    value="2" 
+                                    value={formData.damageLevel}
                                     defaultChecked
-                                    onChange={(e) => handleChangeValue(e, "dealType")}
+                                    onChange={() => handleChangeValue("Обмен", "dealType")}
                                 >
                                     Обмен
                                 </Radio>
@@ -318,7 +318,7 @@ const AddBookPanel = (): JSX.Element => {
                                 </Radio>
                                 <Radio 
                                     name="damage" 
-                                    value="4" 
+                                    value={formData.damageLevel} 
                                     defaultChecked
                                     onChange={(e) => handleChangeValue(e, "damageLevel")}
                                 >
