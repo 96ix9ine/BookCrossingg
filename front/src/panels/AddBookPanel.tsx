@@ -66,6 +66,10 @@ const AddBookPanel = (): JSX.Element => {
             value: 'Манга',
         },
         {
+            label: 'Психология',
+            value: 'Психология',
+        },
+        {
             label: 'Фэнтези',
             value: 'Фэнтези',
         },

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
+import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title, Text } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
 import bridge, { UserInfo } from '@vkontakte/vk-bridge';
 import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
@@ -22,6 +22,9 @@ import anime from 'animejs/lib/anime.es.js';
 import { $dealAddress } from '../store/dealAddress';
 import { $dealStore } from '../store/deal';
 import { getDeals } from '../api/dealApi';
+import { IDeal } from '../interfaces/interface';
+import { MapBooksFactory } from '../components/BookFactory';
+import { $imagesStore } from '../store/images';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -35,9 +38,10 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
     const [modalActive, setModalActive] = useState<boolean>(true);
     const router = useRouteNavigator();
 
-    const [books, user, dealAddress, dealStore] = useUnit([$books, $user, $dealAddress, $dealStore]);
+    const [books, user, dealAddress, dealStore, images] = useUnit([$books, $user, $dealAddress, $dealStore, $imagesStore]);
     const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
-    const { first_name, last_name } = { ...fetchedUser };
+    const { first_name, last_name } = { ...user };
+    const [pointBooks, setPointBooks] = useState<any>();
 
     const modalRef = useRef<HTMLDivElement>(null);
       
@@ -50,6 +54,14 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
         setActivePlacemarkId(null);
         setModalActive(true);
     };
+
+
+    const getPointBooks = (deal: IDeal, point: PlacemarkInfo) => {
+        if (point.address === deal.address) {
+            setPointBooks(deal.bookId);
+        }
+    }
+
 
     // const filteredCoordinates = useMemo(() => {
     //     if (!selectedType) return coordinates;
@@ -80,6 +92,7 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                     const user = await bridge.send('VKWebAppGetUserInfo');
                     setFetchedUser(user);
 
+
                 } catch (error) {
                     console.error('Error fetching user data:', error);
                 }
@@ -90,7 +103,6 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
         getDeals();
         console.log(dealStore);
     }, []);
-
     
 
     return (
@@ -120,61 +132,68 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
             </YMaps>
             {activePlacemarkId && PlacemarkData[activePlacemarkId] && ( // PlacemarkData[activePlacemarkId] - проверка на то что этот элемент существует и его можно открыть
                 <ModalRoot activeModal={`placemarkInfo-${activePlacemarkId}`}>
-                <ModalPage
-                    id={`placemarkInfo-${activePlacemarkId}`}
-                    className='modal__window_background'
-                    getRootRef={modalRef}
-                    onClose={closeModal}
-                    header={
-                        <div className='modal__window_header'>
-                            <ModalPageHeader>Информация о метке</ModalPageHeader>
-                            
-                        </div>
-                    }
-                    settlingHeight={60}
-                    dynamicContentHeight={true}
-                    onOpen={() => {
-                        anime({
-                            targets: '.vkuiModalPage__in',
-                            background: [
-                                'linear-gradient(75deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)',
-                                'linear-gradient(-75deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)'
-                            ],
-                            direction: 'alternate',
-                            loop: true,
-                            easing: 'easeInOutSine',
-                            duration: 6800,
-                            opacity: 1
-                        });
-                    }}
-                >                   
-                    <div className="modal__window">
-                        <h2 className="modal__window_title item"><strong>Имя:</strong>{PlacemarkData[activePlacemarkId].name}</h2>
-                        <p className="modal__window_type item"><strong>Тип:</strong> {PlacemarkData[activePlacemarkId].type}</p>
-                        <p className="modal__window_address item"><strong>Адрес:</strong> {PlacemarkData[activePlacemarkId].address}</p>
-                        <p className="modal__window_time item"><strong>Время работы:</strong> {PlacemarkData[activePlacemarkId].time}</p>
-                        <p className="modal__window_prompt item"><strong>Примечание:</strong> {PlacemarkData[activePlacemarkId].prompt}</p>
-                        <p className='modal__window_listbooks item'>Список книг:</p>
+                    <ModalPage
+                        id={`placemarkInfo-${activePlacemarkId}`}
+                        className='modal__window_background'
+                        getRootRef={modalRef}
+                        onClose={closeModal}
+                        header={
+                            <div className='modal__window_header'>
+                                <ModalPageHeader>Информация о метке</ModalPageHeader>
+                                {PlacemarkData[activePlacemarkId].address}
+                            </div>
+                        }
+                        settlingHeight={60}
+                        dynamicContentHeight={true}
+                        onOpen={() => {
+                            anime({
+                                targets: '.vkuiModalPage__in',
+                                background: [
+                                    'linear-gradient(75deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)',
+                                    'linear-gradient(-75deg, rgba(85,134,198,1) 0%, rgba(49,59,85,1) 20%, rgba(60,113,167,1) 45%, rgba(60,105,150,1) 55%, rgba(49,59,85,1) 80%, rgba(109,120,133,1) 100%)'
+                                ],
+                                direction: 'alternate',
+                                loop: true,
+                                easing: 'easeInOutSine',
+                                duration: 6800,
+                                opacity: 1
+                            });
+                        }}
+                    >
+                        <div className="modal__window">
+                            <h2 className="modal__window_title item"><strong>Имя:</strong>{PlacemarkData[activePlacemarkId].name}</h2>
+                            <p className="modal__window_type item"><strong>Тип:</strong> {PlacemarkData[activePlacemarkId].type}</p>
+                            <p className="modal__window_address item"><strong>Адрес:</strong> {PlacemarkData[activePlacemarkId].address}</p>
+                            <p className="modal__window_time item"><strong>Время работы:</strong> {PlacemarkData[activePlacemarkId].time}</p>
+                            <p className="modal__window_prompt item"><strong>Примечание:</strong> {PlacemarkData[activePlacemarkId].prompt}</p>
+                            <p className='modal__window_listbooks item'>Список книг:</p>
 
-                        <Div className='modal__window_listbooks-container'>
-                            {
-                                books.map(bookItem => 
-                                <Group className='modal__window_book_container' separator='hide'>
-                                        <Div className='modal__window_div_image'>
-                                            <img className='modal__window_image' src={bookItem.imagePath} alt="" />
-                                        </Div>
-                                        <Div className='modal__window_book-textContent'>
-                                            <Title className='modal__window_book__name'>{bookItem.title}</Title>
-                                            <Title className='modal__window_book__descr'>{bookItem.author}</Title>
-                                            <Title className='modal__window_book__descr'>{bookItem.genre}</Title>
-                                            <Title className='modal__window_book__descr'>{`${first_name + " " + last_name}`}</Title>
-                                        </Div>
-                                </Group>
-                                )
-                            }
-                        </Div>
-                    </div>
-                </ModalPage>
+                            <Div className='modal__window_listbooks-container'>
+                                {
+                                    dealStore.map(deal => deal.address === PlacemarkData[activePlacemarkId].address &&
+                                        // <MapBooksFactory bookdId={deal.bookId}/>
+                                        books.map(bookItem => bookItem.id === deal.bookId &&
+                                            <Group className='modal__window_book_container' separator='hide'>
+                                                <img 
+                                                    className='book_item-image' 
+                                                    src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} 
+                                                />
+                                                <Div className='modal__window_div_image'>
+                                                    <img className='modal__window_image' src={bookItem.imagePath} alt="" />
+                                                </Div>
+                                                <Div className='modal__window_book-textContent'>
+                                                    <Title className='modal__window_book__name'>{bookItem.title}</Title>
+                                                    <Title className='modal__window_book__descr'>{bookItem.author}</Title>
+                                                    <Title className='modal__window_book__descr'>{bookItem.genre}</Title>
+                                                    <Title className='modal__window_book__descr'>{`${first_name + " " + last_name}`}</Title>
+                                                </Div>
+                                            </Group>
+                                        )
+                                    )
+                                }
+                            </Div>
+                        </div>
+                    </ModalPage>
                 </ModalRoot>
             )}
             {modalActive && <TabbarComponent/>}

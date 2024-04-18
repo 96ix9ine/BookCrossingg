@@ -21,6 +21,7 @@ import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import anime from 'animejs/lib/anime.es.js';
 import { $dealAddress, setDealAddress } from '../store/dealAddress';
 import { $dealStore } from '../store/deal';
+import { $imagesStore } from '../store/images';
 
 interface CustomMapProps extends NavIdProps {
     coordinates: [number, number, number][];
@@ -28,13 +29,12 @@ interface CustomMapProps extends NavIdProps {
 }
 
 const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) => {
-
     const [activePlacemarkId, setActivePlacemarkId] = useState<number | null>(null);
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [modalActive, setModalActive] = useState<boolean>(true);
     const router = useRouteNavigator();
 
-    const [books, user, dealAddress, dealStore] = useUnit([$books, $user, $dealAddress, $dealStore]);
+    const [books, user, dealAddress, dealStore, images] = useUnit([$books, $user, $dealAddress, $dealStore, $imagesStore]);
 
     const [fetchedUser, setFetchedUser] = useState<UserInfo | null>(null);
     const { first_name, last_name } = { ...fetchedUser };
@@ -162,8 +162,15 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
 
                         <Div className='modal__window_listbooks-container'>
                             {
-                                books.map(bookItem => 
-                                    <Group className='modal__window_book_container' separator='hide'>
+                                dealStore.map(deal => deal.address === PlacemarkData[activePlacemarkId].address &&
+                                    // <MapBooksFactory bookdId={deal.bookId}/>
+                                    books.map(bookItem => bookItem.id === deal.bookId &&
+                                        
+                                        <Group className='modal__window_book_container' separator='hide'>
+                                            <img 
+                                                className='book_item-image' 
+                                                src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} 
+                                            />
                                             <Div className='modal__window_div_image'>
                                                 <img className='modal__window_image' src={bookItem.imagePath} alt="" />
                                             </Div>
@@ -173,7 +180,8 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                                                 <Title className='modal__window_book__descr'>{bookItem.genre}</Title>
                                                 <Title className='modal__window_book__descr'>{`${first_name + " " + last_name}`}</Title>
                                             </Div>
-                                    </Group>
+                                        </Group>
+                                    )
                                 )
                             }
                         </Div>
