@@ -33,6 +33,7 @@ import { initialState } from "../constatns/FormDataConstant";
 import { getUserIdFx } from "../api/addUserApi";
 import { handleCreateDeal } from "../api/dealApi";
 import { $dealAddress, setDealAddress } from "../store/dealAddress";
+import { $imagesStore } from "../store/images";
 
 
 const AddBookPanel = (): JSX.Element => {
@@ -41,6 +42,7 @@ const AddBookPanel = (): JSX.Element => {
 
     const [selectedImages, setSelectedImages] = useState<any>([]);
     const [images, setImages] = useState<any>([]);
+    // const images = useUnit($imagesStore);
     const [done, setDone] = useState<boolean>(false);
 
     const userServer = useUnit($userServerStore);
