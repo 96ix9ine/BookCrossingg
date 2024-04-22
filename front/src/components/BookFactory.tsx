@@ -33,7 +33,6 @@ export const BookFactory = (): JSX.Element => {
                         </CellButton>
                     </Div>
                 ))
-                // books.map(bookItem => <BookFactory book={bookItem} images={images} />)
             }
         </>
     );

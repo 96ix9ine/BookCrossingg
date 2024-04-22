@@ -41,8 +41,8 @@ export const CatalogPanel: React.FC = () => {
         <Panel>
             <PanelHeader
                 className='catalog_header'
-                before={<PanelHeaderBack id='catalog-back' onClick={() => router.back()} />}
-                after={<Search style={{ width: "80vw" }} value={search} onChange={onChange} />}
+                // before={<PanelHeaderBack id='catalog-back' onClick={() => router.back()} />}
+                before={<Search style={{ width: "80vw" }} value={search} onChange={onChange} />}
             />
             <Div>
                 <Title>Актуальное</Title>

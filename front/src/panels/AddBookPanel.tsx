@@ -44,6 +44,7 @@ const AddBookPanel = (): JSX.Element => {
     const [images, setImages] = useState<any>([]);
     // const images = useUnit($imagesStore);
     const [done, setDone] = useState<boolean>(false);
+    const [snackbar, setSnackbar] = useState(null);
 
     const userServer = useUnit($userServerStore);
     const userVk = useUnit($user);
@@ -115,12 +116,13 @@ const AddBookPanel = (): JSX.Element => {
                 bookId: result.id
             })
         }
-
+        setDone(true);
+        openSuccess();
+        
         console.log(deal);
 
-        setDone(true);
         resetBookData();
-        console.log("Сохранено")
+        
     }, [formData, userServer])
 
 
@@ -145,9 +147,18 @@ const AddBookPanel = (): JSX.Element => {
             handleImageUpload(selectedImages, go.bookId);
         }
 
-        console.log(dealAddress);
-        console.log(done);
+        if (snackbar) {
+            openSuccess();
+        }
+            
     }, [go]);
+
+
+    useEffect(() => {
+        routeNavigator.push("/");
+        resetBookData();
+
+    }, [done]);
 
     const resetBookData = () => {
         setFormData(initialState);
@@ -158,7 +169,6 @@ const AddBookPanel = (): JSX.Element => {
 
 
     const openSuccess = () => {
-        if (snackbar) return;
         setSnackbar(
             <Snackbar className="addbook_snackbar"
                 onClose={() => setSnackbar(null)}
@@ -186,12 +196,6 @@ const AddBookPanel = (): JSX.Element => {
                         >
                             Добавить книгу
                         </Text>
-                        <CellButton
-                            onClick={() => {resetBookData()}} 
-                            className="cellbutton"
-                        >
-                            <Text className="cellbutton__text">Очистить</Text>
-                        </CellButton>
                     </Group>
                 </PanelHeader>
                 
@@ -349,8 +353,6 @@ const AddBookPanel = (): JSX.Element => {
                         </FormItem>
                     </form>
                 }
-                
-                
             </Group>
         </Panel>
     );

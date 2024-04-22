@@ -9,15 +9,17 @@ import { $user } from "../store/user";
 import { useEffect } from "react";
 import { $activeBook } from "../store/addBook";
 import { $imagesStore } from "../store/images";
+import { $dealStore } from "../store/deal";
+import { $dealAddress } from "../store/dealAddress";
+import { getDeals } from "../api/dealApi";
 
 const AboutBook: React.FC<ProfileProps> = () => {
     const routeNavigator = useRouteNavigator();
-    const [user, activeBook, images] = useUnit([$user, $activeBook, $imagesStore]);
+    const [user, activeBook, images, dealStore, dealAddress] = useUnit([$user, $activeBook, $imagesStore, $dealStore, $dealAddress]);
     const { photo_max_orig, city, first_name, last_name } = { ...user };
 
     useEffect(() => {
-        console.log(activeBook)
-        console.log(city)
+        getDeals();
     }, []);
 
     return (
@@ -26,14 +28,14 @@ const AboutBook: React.FC<ProfileProps> = () => {
                 <PanelHeader before={<Icon28ArrowLeftOutline style={{paddingLeft: 5}} onClick={() => routeNavigator.back()} />}>
                         <Text className="book_header">Книга</Text>
                 </PanelHeader>
-                    <div className="book_title">
-                        <img 
-                            width={190} 
-                            src={'http://localhost:3000/' + images.find(image => image.bookId === activeBook.id)?.path} 
-                            alt="фото книги">
-                        </img>
-                        <Text className="book_name">{activeBook.title}</Text>
-                    </div>
+                <div className="book_title">
+                    <img 
+                        width={190} 
+                        src={'http://localhost:3000/' + images.find(image => image.bookId === activeBook.id)?.path} 
+                        alt="фото книги">
+                    </img>
+                    {activeBook.title ? <Text className="book_name">{activeBook.title}</Text> : <Text className="book_name">Нет названия</Text>}
+                </div>
                 <SimpleCell className="user" before={<Avatar size={72} src={photo_max_orig} />}>
                     <p>{`${first_name + " " + last_name}`}</p>
                     <p>{`${user?.city.title}`}</p>
@@ -59,7 +61,9 @@ const AboutBook: React.FC<ProfileProps> = () => {
                     </div>
                     <div className="book_Adress">
                         <Text className="book_description_title">Адрес встречи</Text>
-                        <Text>Челябинск, Черкасская улица</Text>
+                        {
+                            dealStore.map(deal => deal.bookId == activeBook.id && <Text>{deal.address}</Text>) 
+                        }
                     </div>
                 </div>
                 <CellButton className="write-seller">

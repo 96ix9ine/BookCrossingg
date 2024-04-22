@@ -11,7 +11,7 @@ import '../styles/MapFilter.scss';
 import '../styles/Tabbar.scss';
 import '../styles/Components.scss';
 import { TabbarComponent } from '../components/Tabbar';
-import { $books } from '../store/addBook';
+import { $books, setActiveBook } from '../store/addBook';
 import { getUserBooksFx } from '../api/addBookApi';
 import { useUnit } from 'effector-react';
 import { $user } from '../store/user';
@@ -83,7 +83,7 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                 ymaps
             });
 
-            getUserBooksFx();
+            // getUserBooksFx();
 
             async function fetchData() {
                 try {
@@ -171,7 +171,7 @@ const CustomMapTabbar: React.FC<CustomMapProps> = ({ coordinates }: CustomMapPro
                                         // <MapBooksFactory bookdId={deal.bookId}/>
                                         books.map(bookItem => bookItem.id === deal.bookId &&
                                             <Group 
-                                                onClick={() => router.push("/aboutBook")} 
+                                                onClick={() => {router.push("/aboutBook"), setActiveBook(bookItem)}} 
                                                 className='modal__window_book_container' 
                                                 separator='hide'
                                             >

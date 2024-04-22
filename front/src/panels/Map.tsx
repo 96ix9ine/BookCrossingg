@@ -166,13 +166,19 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                                     // <MapBooksFactory bookdId={deal.bookId}/>
                                     books.map(bookItem => bookItem.id === deal.bookId &&
                                         
-                                        <Group className='modal__window_book_container' separator='hide'>
-                                            <img 
-                                                className='book_item-image' 
-                                                src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} alt={bookItem.title} 
-                                            />
-                                            <Div className='modal__window_div_image'>
-                                                <img className='modal__window_image' src={bookItem.imagePath} alt="" />
+                                        <Group 
+                                            onClick={() => {router.push("/aboutBook"), setActiveBook(bookItem)}} 
+                                            className='modal__window_book_container' 
+                                            separator='hide'
+                                        >
+                                            <Div 
+                                                className='modal__window_div_image'
+                                            >
+                                                <img 
+                                                    className='modal__window_image' 
+                                                    src={'http://localhost:3000/' + images.find(image => image.bookId === bookItem.id)?.path} 
+                                                    alt={bookItem.title} 
+                                                />
                                             </Div>
                                             <Div className='modal__window_book-textContent'>
                                                 <Title className='modal__window_book__name'>{bookItem.title}</Title>
