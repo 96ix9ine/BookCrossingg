@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { Button, Div, FormItem, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
+import { Button, Div, Group, ModalPage, ModalPageHeader, ModalRoot, NavIdProps, Panel, Title } from '@vkontakte/vkui';
 import { YMaps, Map, ZoomControl, Clusterer, Placemark } from '@pbe/react-yandex-maps';
 import bridge, { UserInfo } from '@vkontakte/vk-bridge';
-import { PlacemarkData, PlacemarkInfo } from '../components/MapDescription';
-import { AccordionVKID } from '../components/MapFilter';
+import { PlacemarkData } from '../components/MapDescription';
 import '../styles/Placemark.scss';
 import '../styles/ModalWindow.scss';
 import '../styles/MapFilter.scss';
@@ -30,7 +29,6 @@ interface CustomMapProps extends NavIdProps {
 
 const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) => {
     const [activePlacemarkId, setActivePlacemarkId] = useState<number | null>(null);
-    const [selectedType, setSelectedType] = useState<string | null>(null);
     const [modalActive, setModalActive] = useState<boolean>(true);
     const router = useRouteNavigator();
 
@@ -50,12 +48,6 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
         setActivePlacemarkId(null);
         setModalActive(true);
     };
-
-    // const filteredCoordinates = useMemo(() => {
-    //     if (!selectedType) return coordinates;
-      
-    //     return coordinates.filter(([lat, lng, _, type]) => type === selectedType);
-    //   }, [coordinates, selectedType]);
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -93,7 +85,6 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
             <YMaps query={{ load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon" }}>
                 <div className='Map_wrapper'>
                     <Map className='Map' style={{ width: '100vw', height: '100vh' }} defaultState={{ center: [55.174366176405364, 61.38835450474792], zoom: 12 }}>
-                        <AccordionVKID/>
                         <ZoomControl options={{ float: "right" }} />
                         <Clusterer
                             options={{
@@ -113,7 +104,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ coordinates }: CustomMapProps) =>
                     </Map>
                 </div>
             </YMaps>
-            {activePlacemarkId && PlacemarkData[activePlacemarkId] && ( // PlacemarkData[activePlacemarkId] - проверка на то что этот элемент существует и его можно открыть
+            {activePlacemarkId && PlacemarkData[activePlacemarkId] && (
                 <ModalRoot activeModal={`placemarkInfo-${activePlacemarkId}`}>
                 <ModalPage
                     id={`placemarkInfo-${activePlacemarkId}`}

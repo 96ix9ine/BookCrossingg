@@ -154,11 +154,11 @@ const AddBookPanel = (): JSX.Element => {
     }, [go]);
 
 
-    useEffect(() => {
-        routeNavigator.push("/");
-        resetBookData();
+    // useEffect(() => {
+    //     routeNavigator.push("/");
+    //     resetBookData();
 
-    }, [done]);
+    // }, [done]);
 
     const resetBookData = () => {
         setFormData(initialState);
@@ -213,6 +213,7 @@ const AddBookPanel = (): JSX.Element => {
                         type="text"
                         value={dealAddress ? dealAddress : "Выберите адрес"}
                         disabled
+                        required
                     />
                 </div>
                 
@@ -253,6 +254,7 @@ const AddBookPanel = (): JSX.Element => {
                                 onChange={(e) => handleChangeValue(e, "title")}
                                 type="text"
                                 placeholder="Введите название"
+                                required
                             />
                         </div>
 
@@ -264,6 +266,7 @@ const AddBookPanel = (): JSX.Element => {
                                 value={formData.author}
                                 onChange={(e) => handleChangeValue(e, "author")}
                                 placeholder="Введите автора"
+                                required
                             />
                         </div>
 
@@ -275,6 +278,7 @@ const AddBookPanel = (): JSX.Element => {
                                 value={formData.description}
                                 onChange={(e) => handleChangeValue(e, "description")}
                                 placeholder="Введите описание книги"
+                                required
                             />
                         </div>
 
@@ -343,8 +347,9 @@ const AddBookPanel = (): JSX.Element => {
                         <FormItem>
                             <Group separator="hide">
                                 <Text className="footer__text" style={{textAlign: "left"}}>Добавляя книгу, вы подтверждаете, что прочли и соглашаетесь с Политикой конфиденциальности и Пользовательским соглашением</Text>
-                                <Button 
-                                    onClick={() => handleSubmit()}
+                                <Button
+                                    type="submit" 
+                                    // onClick={() => handleSubmit()}
                                     className="addBook__button"
                                 >
                                     Сохранить

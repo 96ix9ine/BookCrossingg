@@ -19,17 +19,17 @@ export const TabbarComponent: React.FC = () => {
   const handleMessagesClick = (userId: number | undefined) => {
     if (userId) {
       setIndicator('two');
-      window.open(`https://vk.com/im?sel=${userId}`, '_blank');
+      window.open(`https://vk.com/im?sel`, '_blank'); // добавить =${userId} если нужно
     }
   };
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const user = await bridge.send('VKWebAppGetUserInfo');
-  //     setUser(user);
-  //   }
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const user = await bridge.send('VKWebAppGetUserInfo');
+      setUser(user);
+    }
+    fetchData();
+  }, [handleMessagesClick]);
 
   useEffect(() => {
     anime({
