@@ -20,7 +20,6 @@ export const TabbarComponent: React.FC = () => {
     if (userId) {
       setIndicator('two');
       window.open(`https://vk.com/im?sel`, '_blank'); // добавить =${userId} если нужно
-      window.open(`https://vk.com/im?sel`, '_blank');
     }
   };
 
