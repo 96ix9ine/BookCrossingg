@@ -49,7 +49,7 @@ export const TabbarComponent: React.FC = () => {
       <Tabbar className="tabbar" getRootRef={tabbarRef}>
         <TabbarItem
           selected={indicator === 'one'}
-          onClick={() => [setIndicator('one'), router.push('/')]}
+          onClick={() => [setIndicator('one'), router.push('/home')]}
           indicator={<Badge mode="prominent">Есть обновления</Badge>}
           text="Каталог"
         >

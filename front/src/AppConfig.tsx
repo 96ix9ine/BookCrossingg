@@ -16,7 +16,7 @@ export const AppConfig = () => {
   // Указываем пути для панелей
   const router = createHashRouter([
     {
-      path: '/',
+      path: 'home',
       panel: 'home_panel',
       view: 'default_view',
     },
@@ -43,6 +43,11 @@ export const AppConfig = () => {
     {
       path: 'addbook',
       panel: 'addbook_panel',
+      view: 'default_view',
+    },
+    {
+      path: '/',
+      panel: 'start_panel',
       view: 'default_view',
     }
   ])

@@ -39,7 +39,7 @@ export const StartScreensPanel: React.FC = () => {
                         
                     </Div>
                     <Div className='start_div_footer'>
-                        <Button className='start_button left-btn' onClick={() => router.push('/')}>Пропустить</Button>
+                        <Button className='start_button left-btn' onClick={() => router.push('/home')}>Пропустить</Button>
                         <Button className='start_button right-btn' onClick={() => handleTabClick("2", "two")}>Далее</Button>  
                     </Div>
                 </Div>
@@ -98,7 +98,7 @@ export const StartScreensPanel: React.FC = () => {
                     <Subhead className='start_grid_subtitle'>Тут ты сможешь отдавать, продавать и обмениваться книгами с другими пользователями</Subhead>
                     
                     <Div className='start_div_footer footer'>
-                        <Button className='start_grid_button' onClick={() => router.push("/")}>Начать</Button>
+                        <Button className='start_grid_button' onClick={() => router.push("/home")}>Начать</Button>
                     </Div>
                 </Div>
             </Panel>

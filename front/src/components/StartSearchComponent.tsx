@@ -1,8 +1,13 @@
 import React, { useState, useRef } from "react";
-import { Checkbox, Group, Search, Footer } from "@vkontakte/vkui";
+import { Checkbox, Group, Search, Footer, Button } from "@vkontakte/vkui";
 import { FixedSizeList } from 'react-window';
 import "../styles/StartScreens.scss";
 import { CityisListObjects } from "./CitiesList";
+import { StartScreensPanel } from "../panels/StartScreensPanel";
+
+// interface StartSearchProps {
+//   goHeaderSearch: () => void;
+// }
 
 export const StartSearchComponent: React.FC = () => {
   const [search, setSearch] = useState<string>("");
@@ -28,6 +33,10 @@ export const StartSearchComponent: React.FC = () => {
   const CitiesFiltered = CityisListObjects.filter(
     ({ name }) => name.toLowerCase().indexOf(search.toLowerCase()) > -1
   );
+  // const [activePanel, setActivePanel] = useState<string>("1");
+  // const goToNextPanel = () => {
+  //   goHeaderSearch = () => setActivePanel("3");
+  // }
 
   // Функция для рендеринга каждого элемента списка
   const Row = ({ index, style }) => (
@@ -52,6 +61,11 @@ export const StartSearchComponent: React.FC = () => {
             {Row}
           </FixedSizeList>
         )}
+        {/* {selectedCity && (
+          <Footer>
+            <Button onClick={goToNextPanel}>Your Button Text</Button>
+          </Footer>
+        )} */}
         {CitiesFiltered.length === 0 && <Footer>Ничего не найдено</Footer>}
       </Group>
     </React.Fragment>

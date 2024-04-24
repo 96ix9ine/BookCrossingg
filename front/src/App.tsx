@@ -15,6 +15,7 @@ import AboutBook from './panels/AboutBook';
 import { useUnit } from 'effector-react';
 import { getAllImages, getUserBooksFx } from './api/addBookApi';
 import { $dealStore } from './store/deal';
+import { StartScreensPanel } from './panels/StartScreensPanel';
 
 
 export const App = () => {
@@ -43,6 +44,7 @@ export const App = () => {
     <SplitLayout>
       <SplitCol>
         <View nav={activeView} activePanel={activePanel}>
+          <StartScreensPanel nav="start_panel"/>
           <CatalogPanel nav="home_panel"/>
           <Profile nav="profile_panel" />
           <AddBookPanel nav="addbook_panel"/>
