@@ -9,10 +9,24 @@ export class UserService {
 
 
     async getUser(vkId: string) {
-
         try {
             const data = await this.prismaService.user.findFirst({where: {
                 vkId: vkId,
+            }});
+    
+            return data;
+        }
+
+        catch (e) {
+            throw new Error("Пользователь не найден")
+        }
+    }
+
+
+    async getUserByVkId(id: string) {
+        try {
+            const data = await this.prismaService.user.findFirst({where: {
+                id: id,
             }});
     
             return data;

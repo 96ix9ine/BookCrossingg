@@ -13,6 +13,12 @@ export class UserController {
     }
 
 
+    @Get("getUserByVkId/:userId")
+    async GetUserByVkId(@Param('userId') userId: string) {
+        return this.userService.getUserByVkId(userId);
+    }
+
+
     @Post("checkUser")
     async CheckUser(@Body() data: CreateUserDTO) {
         return this.userService.checkUser(data.vkId);

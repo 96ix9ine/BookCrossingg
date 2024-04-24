@@ -106,6 +106,7 @@ const AddBookPanel = (): JSX.Element => {
             user_Id = await getUserIdFx(userVk.id);
         }
 
+
         const result = await handleCreateBook(user_Id.id, formData);
         addResultBook(result);
         const deal = handleSetAddress(user_Id.id, result.id, dealAddress);   
@@ -116,6 +117,7 @@ const AddBookPanel = (): JSX.Element => {
                 bookId: result.id
             })
         }
+
         setDone(true);
         openSuccess();
         
@@ -129,7 +131,7 @@ const AddBookPanel = (): JSX.Element => {
     const handleSetAddress = async (userId: any, resultId: any, address:  any) => {
         return await handleCreateDeal(userId, resultId, address);
     }
-
+    
 
     const handleImageChange = (event: any) => {
         const files = event.target.files;

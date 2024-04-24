@@ -5,22 +5,36 @@ import * as React from "react";
 import { ProfileProps } from "./Profile";
 import "../styles/AboutBook.scss"
 import { useUnit } from "effector-react";
-import { $user } from "../store/user";
+import { $user, $userServerStore } from "../store/user";
 import { useEffect } from "react";
 import { $activeBook } from "../store/addBook";
 import { $imagesStore } from "../store/images";
 import { $dealStore } from "../store/deal";
 import { $dealAddress } from "../store/dealAddress";
 import { getDeals } from "../api/dealApi";
+import { getUserIdFx, getVkUserId } from "../api/addUserApi";
 
 const AboutBook: React.FC<ProfileProps> = () => {
     const routeNavigator = useRouteNavigator();
-    const [user, activeBook, images, dealStore, dealAddress] = useUnit([$user, $activeBook, $imagesStore, $dealStore, $dealAddress]);
+    const [user, activeBook, images, dealStore, dealAddress, userServerStore] = useUnit([$user, $activeBook, $imagesStore, $dealStore, $dealAddress, $userServerStore]);
     const { photo_max_orig, city, first_name, last_name } = { ...user };
 
     useEffect(() => {
         getDeals();
+        console.log(activeBook)
     }, []);
+
+
+    const handleMessagesClick = async (userId: string | undefined) => {
+        if (userId) {
+            const vkUserId = await getVkUserId(userId);
+            window.open(`https://vk.com/im?sel=${vkUserId.vkId}`, '_blank');
+        }
+
+        else {
+            // TODO: snackbar about error
+        }
+    };
 
     return (
         <Panel>
@@ -67,7 +81,12 @@ const AboutBook: React.FC<ProfileProps> = () => {
                     </div>
                 </div>
                 <CellButton className="write-seller">
-                    <span className="write-seller_btn">Написать продавцу</span>
+                    <span 
+                        className="write-seller_btn"
+                        onClick={() => handleMessagesClick(activeBook.userId)}
+                    >
+                        Написать продавцу
+                    </span>
                 </CellButton>
             </Group>
         </Panel>

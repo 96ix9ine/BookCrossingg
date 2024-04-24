@@ -9,6 +9,12 @@ export const getUserIdFx = createEffect(async (vkId: number) => {
 })
 
 
+export const getVkUserId = async (id: string) => {
+    const { data } = await api.get("api/user/getUserByVkId/" + id);
+    return data;
+}
+
+
 // Добавление ID пользователя в базу данных.
 export const createUserFx = createEffect(async (vkId: number) => {
     const vkIdString = vkId.toString();
@@ -16,3 +22,4 @@ export const createUserFx = createEffect(async (vkId: number) => {
     const { data } = await api.post("api/user/checkUser", { vkId: vkIdString });
     return data;
 });
+
