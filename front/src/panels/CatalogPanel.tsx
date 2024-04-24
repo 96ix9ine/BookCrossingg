@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Panel, PanelHeader, PanelHeaderBack, Search, Group, Title, Text, Div, CellButton } from '@vkontakte/vkui';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import '../styles/Components.scss';
+import '../styles/AboutBook.scss';
 import { TabbarComponent } from '../components/Tabbar';
 import { $books } from '../store/addBook';
 import { useUnit } from 'effector-react';
 import { api } from '../api/axiosInstance';
 import { getAllImages } from '../api/addBookApi';
 import { $imagesStore } from '../store/images';
-import { BookFactory } from '../components/BookFactory';
+import { BookFactoryCatalog } from '../components/BookFactory';
 
 
 export const CatalogPanel: React.FC = () => {
@@ -48,7 +49,7 @@ export const CatalogPanel: React.FC = () => {
                 <Title>Актуальное</Title>
 
                 <Div className="books__items">
-                    <BookFactory />
+                    <BookFactoryCatalog />
                 </Div>
             </Div>
             <TabbarComponent/>

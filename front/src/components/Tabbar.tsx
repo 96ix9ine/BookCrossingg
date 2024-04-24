@@ -29,7 +29,7 @@ export const TabbarComponent: React.FC = () => {
       setUser(user);
     }
     fetchData();
-  }, [handleMessagesClick]);
+  }, []);
 
   useEffect(() => {
     anime({

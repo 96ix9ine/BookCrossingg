@@ -63,3 +63,21 @@
     font-size: 20px;
     color: #FDFCFF;
 }
+
+.book_container_catalog {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 200px;
+    padding: 0;
+}
+.book_container-wrapper__catalog {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
