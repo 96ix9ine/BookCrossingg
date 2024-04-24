@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Panel, Button, Title, Div, Tabbar, TabbarItem, Image, Group, CustomSelect, Checkbox, usePlatform, Search, Cell, Footer, PanelHeader, PanelHeaderButton, VisuallyHidden, PanelHeaderBack, SimpleCell, Avatar, CardGrid, Card, Subhead } from '@vkontakte/vkui';
+import { View, Panel, Button, Title, Div, Tabbar, TabbarItem, Image, Group, CustomSelect, Checkbox, usePlatform, Search, Cell, Footer, PanelHeader, PanelHeaderButton, VisuallyHidden, PanelHeaderBack, SimpleCell, Avatar, CardGrid, Card, Subhead, OnboardingTooltip } from '@vkontakte/vkui';
 import "../styles/StartScreens.scss";
 import {StartSearchComponent} from '../components/StartSearchComponent';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
@@ -9,6 +9,8 @@ export const StartScreensPanel: React.FC = () => {
     const [simple, setSimple] = useState<string>("one");
 
     const router = useRouteNavigator();
+
+    const [tooltip, setTooltip] = useState(true);
 
     const handleTabClick = (panel: string, value: string) => {
         setActivePanel(panel);
@@ -47,18 +49,26 @@ export const StartScreensPanel: React.FC = () => {
 
             <Panel id='2'>
                 <Div className='start_div_container'>
-                    <Tabbar className='start_nav_wrapper'>
+                    <OnboardingTooltip
+                        shown={tooltip}
+                        text="Нажмите после выбора города"
+                        placement='right'
+                        arrowOffset={80}
+                        onClose={() => setTooltip(false)}
+                    >
+                        <Tabbar className='start_nav_wrapper'>
 
-                    <TabbarItem className='start_nav_item' selected={simple === 'one'} onClick={() => handleTabClick("1", "one")}>
-                    </TabbarItem>
+                        <TabbarItem className='start_nav_item' selected={simple === 'one'} onClick={() => handleTabClick("1", "one")}>
+                        </TabbarItem>
 
-                    <TabbarItem className='start_nav_item' selected={simple === 'two'} onClick={() => handleTabClick("2", "two")}>
-                    </TabbarItem>
+                        <TabbarItem className='start_nav_item' selected={simple === 'two'} onClick={() => handleTabClick("2", "two")}>
+                        </TabbarItem>
 
-                    <TabbarItem className='start_nav_item' selected={simple === 'three'} onClick={() => handleTabClick("3", "three")}>
-                    </TabbarItem>
+                        <TabbarItem className='start_nav_item' selected={simple === 'three'} onClick={() => handleTabClick("3", "three")}>
+                        </TabbarItem>
 
-                    </Tabbar>
+                        </Tabbar>
+                    </OnboardingTooltip>
 
                     <Title className='start_search_title'>Выберите свой город</Title>
                     <Div className='start_div_seacrh'>
